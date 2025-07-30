@@ -1,0 +1,139 @@
+
+
+
+
+  Real u_0_ex(const Point&P, Parameters& pa = defaultParameters){ // u(x,0) <- u_0(xi) xi = x +ct, pa=(c)
+    Real a =10000; // parametre de concentration de la gaussienne
+    Real R= 0.05;        // source radius
+    Real amp= 1; // source amplitude (constant power)
+    Point P_ex =P- Point(Start_int);
+    Real d = P_ex.distance(Point(Start_sol));
+    if(mod=="interface"){
+    if (d<=R) return amp* exp(-a*d*d); else return 0.;}
+    if (d<=R) return amp* exp(-a*d*d); else return 0.;
+  }
+  Real u_d_ex(const Point&P, Parameters& pa = defaultParameters){ // u'(x,0) ou u(x,dt) en fonction des possede_
+    Real a = 10000 , R= 0.05, amp= 1;
+    Point P_ex =P- Point(Start_int);
+    Real d = P_ex.distance(Point(Start_sol));
+
+    if(mod=="interface"){
+    if (d<=R) return amp* exp(-a*d*d); else return 0.;}
+    // if(mod =="energie") {possede_derive = true; possede_valeur = false;return cm*2*x*a*exp(-a*(x-length/2)*(x-length/2));}
+    if (d<=R) return amp* exp(-a*d*d); else return 0.;
+  }
+  Real u_1_ex(const Point&P, Parameters& pa = defaultParameters){ // u(x,dt)
+    if(possede_valeur){return u_d_ex(P);}
+    else if(possede_derive){return u_0_ex(P) + dtime* u_d_ex(P);}
+    else return 0;
+  }
+
+  Real Fm_var (const Point&P, Parameters& pa = defaultParameters){
+    Point P_ex =P- Point(Start_int);
+    Real xi = P_ex(1)-cm*t;
+    Point P_xi = Point(xi);
+    if(xi<=0){return 0.5*u_0(P_xi);}
+    else{
+      if(mod=="flat"){return 0.5*u_0(P_xi);}
+
+      if(mod=="interface" and epsi <0.1){
+        if(vit_abs<min(cm,cp)){std::cout<<"ERROR_int_neg ";error_count+=1;return 10;} 
+
+        if(vit_abs>max(cm,cp)){
+          if(vit>=0){return 0;}
+          if(vit<0){std::cout<<"ERROR_int_neg ";error_count+=1;return 10;}}
+
+        if(cm<vit_abs<cp){
+          if(vit<0){std::cout<<"ERROR_int_neg ";error_count+=1;return 10;}
+          if(vit>=0){1+1;}} //rajouter l'expression de m
+
+        if(cp<vit_abs<cm){std::cout<<"ERROR_int_neg ";error_count+=1;return 10;}
+
+      }
+      else {std::cout<<"ERROR_neg";error_count+=1;return 10;}
+    }
+    std::cout<<"ERROR_Fm";error_count+=1;return 10;
+  }
+  Real Gm_var  (const Point&P, Parameters& pa = defaultParameters){
+    Point P_ex =P- Point(Start_int);
+    Real xi = P_ex(1)+cm*t;
+    Point P_xi = Point(xi);
+    if(xi<=0){return 0.5*u_0(P_xi);}
+    else{
+      if(mod=="flat"){return 0.5*u_0(P_xi);}
+      if(mod=="interface" and epsi<0.1){
+        if(vit_abs<min(cm,cp)){return R_ref/2 * u_0(-P_xi/tau_2);} 
+
+        if(vit_abs>max(cm,cp)){
+          if(vit>=0){return 0;}
+          if(vit<0){std::cout<<"ERROR_neg";error_count+=1;return 10;}}
+
+        if(cm<vit_abs<cp){1+1;}
+
+        if(cp<vit_abs<cm){1+1;}
+      }
+      else {std::cout<<"ERROR_neg";error_count+=1;return 10;}
+    }
+    std::cout<<"ERROR_Gm";error_count+=1;return 10;
+  }
+  Real Fp_var  (const Point&P, Parameters& pa = defaultParameters){
+    Point P_ex =P- Point(Start_int);
+    Real xi = P_ex(1)-cp*t;
+    Point P_xi = P - Point(cp)*t;
+    // std::cout<<tau_2<<" "<<tau_1<<" \n";
+    if(xi>=0){return 0.5*u_0(P_xi);}
+    else{
+      if(mod=="flat"){return 0.5*u_0(P_xi);}
+
+      if(mod=="interface" and epsi <0.1){
+        if(vit_abs<min(cm,cp)){return T_trans/2 * u_0((P_ex(1)-cp*t)/tau_1);}
+
+        if(vit_abs>max(cm,cp)){
+          if(vit>0){std::cout<<"ERROR_neg";error_count+=1;return 10;}
+          if(vit<=0){return -0.5*(R_ref*u_0(P_xi/tau_1) + T_trans*u_0(P_xi/tau_2));}}
+        if(cm<vit_abs<cp){1+1;}
+
+        if(cp<vit_abs<cm){1+1;}
+      }
+      else {std::cout<<"ERROR_pos";error_count+=1;return 10;}
+    }
+    std::cout<<"ERROR_Fp";error_count+=1;return 10;
+  }
+  Real Gp_var  (const Point&P, Parameters& pa = defaultParameters){
+    Point P_ex =P- Point(Start_int);
+    Real xi = P_ex(1)+cp*t;
+    Point P_xi = P - Point(cp)*t;
+    if(xi>=0){return 0.5*u_0(P_xi);}
+    else{
+      if(mod=="flat"){return 0.5*u_0(P_xi);}
+
+      if(mod=="interface" and epsi <0.1){
+        if(vit_abs<min(cm,cp)){std::cout<<"ERROR_int_pos";error_count+=1;return 10;}
+
+        if(vit_abs>max(cm,cp)){
+          if(vit>0){std::cout<<"ERROR_neg";error_count+=1;return 10;}
+          if(vit<=0){return -0.5*(R_ref * u_0(P_xi/tau_3)+ T_trans*u_0(P_xi/tau_4));}
+        }
+        
+        if(cm<vit_abs<cp){1+1;}
+
+        if(cp<vit_abs<cm){1+1;}
+      }
+      else {std::cout<<"ERROR_pos";error_count+=1;return 10;}
+    }
+    std::cout<<"ERROR_Gp";error_count+=1;return 10;
+  }
+  Real u_var (const Point& P, Parameters& pa = defaultParameters){
+    Point P_ex =P- Point(Start_int);
+
+    // if(P_ex(1)-vit*t>0 and P_ex(1)<0){cout<<"pos "<<P_ex<<' ';
+    // if(P_ex(1)-cp*t<0){cout<<" u_0 appeared f "<<u_0_ex(( P_ex-Point(cp)*t)/tau_1)<<" ; ";}
+    // if(P_ex(1)+cm*t>0){cout<<" u_0 appeared g "<<u_0_ex(( P_ex+Point(cm)*t)/tau_2)<<" ; ";} cout<<" \n";}
+
+    if(mod == "flat"){ return Fm(P)+Gm(P);}
+    if(mod =="interface"){
+    if(P_ex(1)-vit*t<0) return (Fm(P)+Gm(P));
+    if(P_ex(1)-vit*t>0)  return (Fp(P)+Gp(P));
+    if(P_ex(1)-vit*t==0) return 0.5*(Fm(P)+Gm(P)) + 0.5 * (Fp(P)+Gp(P));}
+    std::cout<<"ERROR_u_ex";error_count+=1;return 10;
+  }

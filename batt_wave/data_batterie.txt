@@ -1,0 +1,20 @@
+dx              Start_int=0.2
+ordre
+c_minus    /rho_0
+c_plus     /rho_1
+sigma_minus/mu_0 
+sigma_plus /mu_1
+vitesse
+Start_domaine
+Start_solution
+================ 
+0.005
+2 
+3.
+3.
+3.
+3.
+0.1
+-0.5
+-0.2
+================ 

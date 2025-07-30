@@ -1,0 +1,4 @@
+/home/uma/fontan/Stage/Sim/build/CMakeFiles/checklock.dir
+/home/uma/fontan/Stage/Sim/build/CMakeFiles/simulation.dir
+/home/uma/fontan/Stage/Sim/build/CMakeFiles/edit_cache.dir
+/home/uma/fontan/Stage/Sim/build/CMakeFiles/rebuild_cache.dir

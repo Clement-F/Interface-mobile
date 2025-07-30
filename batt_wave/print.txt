@@ -1,0 +1,234 @@
+ XLiFE++ v3.0.97 (2025-07-09)
+ running on 30.jul.2025 at 14h49 on Linux-x86_64 (menetou), 48 available threads
+
+Machine epsilon                     theEpsilon_= 2.22045e-16
+Greatest real number (real_t)       theRealMax_= 1.79769e+308
+Divide by zero threshold      theZeroThreshold_= 1e-30
+Default convergence threshold     theTolerance_= 2.22045e-12
+Greatest integer (int)                 INT_MAX = 2147483647
+Greatest unsigned (number_t)      theNumberMax_= 18446744073709551615
+Greatest address (size_t)           theSizeMax_= 18446744073709551615
+Greatest dimension (dimen_t)         theDimMax_= 65535
+-------------------------------------------------------------
+la CFL est à 0.8
+========================= Mesh & space created ========================
+ model : interface 
+ régime subsonique 
+ célérité maximal : 1 
+ nombre de pas de temps :500 pas de temps :0.002
+ les bords du domaines sont : -0.5 et 0.5
+ la solution commence en :-0.2
+ nombre de noeuds : 400
+ ordre de la méthode : 2 
+ paramètre de régularisation :0.1 
+ savefile =20 
+========================= Storage created ========================
+normes des premiers termes 0.99899 0.99899
+========================= Cond init set ========================
+========================= Form defined ========================
+paramètres utilisée (rho, mu, c, sigma) : 
+milieu 0: 3 ;3 ;1 ;3 
+milieu 1: 3 ;3 ;1 ;3 
+vitesse = 0.1 
+les coeffs de reflexion, transmissions sont : R =0 T=1 
+les coeffs de contraction dilatation sont : tau_1=1 tau_2=1.22222 tau_3=0 tau_4=0 
+========================= loop ========================
+========= 1 =============== 20 =============== 0.04 ========================= 
+amplitude numerique : 0.502636 
+energie             : 59.4495
+4% du calcul fini: 20/500 
+========= 1 =============== 40 =============== 0.08 ========================= 
+amplitude numerique : 0.500486 
+energie             : 59.4495
+8% du calcul fini: 40/500 
+========= 1 =============== 60 =============== 0.12 ========================= 
+amplitude numerique : 0.500504 
+energie             : 59.4495
+12% du calcul fini: 60/500 
+========= 1 =============== 80 =============== 0.16 ========================= 
+amplitude numerique : 0.500491 
+energie             : 59.4495
+16% du calcul fini: 80/500 
+========= 1 =============== 100 =============== 0.2 ========================= 
+amplitude numerique : 0.500466 
+energie             : 59.4495
+20% du calcul fini: 100/500 
+========= 1 =============== 120 =============== 0.24 ========================= 
+amplitude numerique : 0.500482 
+energie             : 59.4287
+24% du calcul fini: 120/500 
+========= 1 =============== 140 =============== 0.28 ========================= 
+amplitude numerique : 0.500369 
+energie             : 50.5321
+28% du calcul fini: 140/500 
+========= 1 =============== 160 =============== 0.32 ========================= 
+amplitude numerique : 0.500167 
+energie             : 40.3225
+32% du calcul fini: 160/500 
+========= 1 =============== 180 =============== 0.36 ========================= 
+amplitude numerique : 0.500019 
+energie             : 29.7836
+36% du calcul fini: 180/500 
+========= 1 =============== 200 =============== 0.4 ========================= 
+amplitude numerique : 0.499844 
+energie             : 29.7248
+40% du calcul fini: 200/500 
+========= 1 =============== 220 =============== 0.44 ========================= 
+amplitude numerique : 0.499657 
+energie             : 29.7248
+44% du calcul fini: 220/500 
+========= 1 =============== 240 =============== 0.48 ========================= 
+amplitude numerique : 0.499835 
+energie             : 29.7248
+48% du calcul fini: 240/500 
+========= 1 =============== 260 =============== 0.52 ========================= 
+amplitude numerique : 0.499986 
+energie             : 29.7248
+52% du calcul fini: 260/500 
+========= 1 =============== 280 =============== 0.56 ========================= 
+amplitude numerique : 0.500109 
+energie             : 29.7248
+56% du calcul fini: 280/500 
+========= 1 =============== 300 =============== 0.6 ========================= 
+amplitude numerique : 0.500206 
+energie             : 29.7248
+60% du calcul fini: 300/500 
+========= 1 =============== 320 =============== 0.64 ========================= 
+amplitude numerique : 0.500275 
+energie             : 29.7064
+64% du calcul fini: 320/500 
+========= 1 =============== 340 =============== 0.68 ========================= 
+amplitude numerique : 0.500211 
+energie             : 20.4901
+68% du calcul fini: 340/500 
+========= 1 =============== 360 =============== 0.72 ========================= 
+amplitude numerique : 0.367526 
+energie             : 10.2843
+72% du calcul fini: 360/500 
+========= 1 =============== 380 =============== 0.76 ========================= 
+amplitude numerique : 0.0211013 
+energie             : 0.0627376
+76% du calcul fini: 380/500 
+========= 1 =============== 400 =============== 0.8 ========================= 
+amplitude numerique : 0.000260542 
+energie             : 6.12971e-05
+80% du calcul fini: 400/500 
+========= 1 =============== 420 =============== 0.84 ========================= 
+amplitude numerique : 0.000256151 
+energie             : 5.99268e-05
+84% du calcul fini: 420/500 
+========= 1 =============== 440 =============== 0.88 ========================= 
+amplitude numerique : 0.000257869 
+energie             : 5.97711e-05
+88% du calcul fini: 440/500 
+========= 1 =============== 460 =============== 0.92 ========================= 
+amplitude numerique : 0.000256562 
+energie             : 5.96302e-05
+92% du calcul fini: 460/500 
+========= 1 =============== 480 =============== 0.96 ========================= 
+amplitude numerique : 0.000255371 
+energie             : 5.94744e-05
+96% du calcul fini: 480/500 
+le counter est à : 0
+il y a eu : 0 erreurs 
+l'erreur maximal est : 0 
+========================= save to file ========================
+saveToFile(list<TermVector*>) ...
+Warning XLiFE++: free_warning
+vector is void, no saving
+------ post traitement-------20/500 
+saveToFile(list<TermVector*>) ...
+Warning XLiFE++: free_warning
+vector is void, no saving
+------ post traitement-------40/500 
+saveToFile(list<TermVector*>) ...
+Warning XLiFE++: free_warning
+vector is void, no saving
+------ post traitement-------60/500 
+saveToFile(list<TermVector*>) ...
+Warning XLiFE++: free_warning
+vector is void, no saving
+------ post traitement-------80/500 
+saveToFile(list<TermVector*>) ...
+Warning XLiFE++: free_warning
+vector is void, no saving
+------ post traitement-------100/500 
+saveToFile(list<TermVector*>) ...
+Warning XLiFE++: free_warning
+vector is void, no saving
+------ post traitement-------120/500 
+saveToFile(list<TermVector*>) ...
+Warning XLiFE++: free_warning
+vector is void, no saving
+------ post traitement-------140/500 
+saveToFile(list<TermVector*>) ...
+Warning XLiFE++: free_warning
+vector is void, no saving
+------ post traitement-------160/500 
+saveToFile(list<TermVector*>) ...
+Warning XLiFE++: free_warning
+vector is void, no saving
+------ post traitement-------180/500 
+saveToFile(list<TermVector*>) ...
+Warning XLiFE++: free_warning
+vector is void, no saving
+------ post traitement-------200/500 
+saveToFile(list<TermVector*>) ...
+Warning XLiFE++: free_warning
+vector is void, no saving
+------ post traitement-------220/500 
+saveToFile(list<TermVector*>) ...
+Warning XLiFE++: free_warning
+vector is void, no saving
+------ post traitement-------240/500 
+saveToFile(list<TermVector*>) ...
+Warning XLiFE++: free_warning
+vector is void, no saving
+------ post traitement-------260/500 
+saveToFile(list<TermVector*>) ...
+Warning XLiFE++: free_warning
+vector is void, no saving
+------ post traitement-------280/500 
+saveToFile(list<TermVector*>) ...
+Warning XLiFE++: free_warning
+vector is void, no saving
+------ post traitement-------300/500 
+saveToFile(list<TermVector*>) ...
+Warning XLiFE++: free_warning
+vector is void, no saving
+------ post traitement-------320/500 
+saveToFile(list<TermVector*>) ...
+Warning XLiFE++: free_warning
+vector is void, no saving
+------ post traitement-------340/500 
+saveToFile(list<TermVector*>) ...
+Warning XLiFE++: free_warning
+vector is void, no saving
+------ post traitement-------360/500 
+saveToFile(list<TermVector*>) ...
+Warning XLiFE++: free_warning
+vector is void, no saving
+------ post traitement-------380/500 
+saveToFile(list<TermVector*>) ...
+Warning XLiFE++: free_warning
+vector is void, no saving
+------ post traitement-------400/500 
+saveToFile(list<TermVector*>) ...
+Warning XLiFE++: free_warning
+vector is void, no saving
+------ post traitement-------420/500 
+saveToFile(list<TermVector*>) ...
+Warning XLiFE++: free_warning
+vector is void, no saving
+------ post traitement-------440/500 
+saveToFile(list<TermVector*>) ...
+Warning XLiFE++: free_warning
+vector is void, no saving
+------ post traitement-------460/500 
+saveToFile(list<TermVector*>) ...
+Warning XLiFE++: free_warning
+vector is void, no saving
+------ post traitement-------480/500 
+===================================== 
+time leapfrog : mat = 0.591005 inv = 2.16113 smb = 4.39618 sol = 0.017187 tproc=0.118535 tsave =2.8445 total = 10.1285
+ erreur maximal : 0 erreur maximal relative :0 

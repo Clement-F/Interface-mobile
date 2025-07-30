@@ -1,0 +1,2 @@
+/usr/bin/ar qc /home/uma/fontan/Stage/Sim/lib/libsimulation.a CMakeFiles/simulation.dir/simulation.cpp.o
+/usr/bin/ranlib /home/uma/fontan/Stage/Sim/lib/libsimulation.a

@@ -1,0 +1,4 @@
+/home/uma/fontan/Stage/batt_wave/CMakeFiles/checklock.dir
+/home/uma/fontan/Stage/batt_wave/CMakeFiles/exec-x86_64-linux-g++-13-Release.dir
+/home/uma/fontan/Stage/batt_wave/CMakeFiles/edit_cache.dir
+/home/uma/fontan/Stage/batt_wave/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/home/uma/fontan/Stage/batt_wave",
+  "command": "/usr/bin/x86_64-linux-gnu-g++-13  -I/usr/uma/pack/xlifepp/Ubuntu24/src -I/usr/uma/pack/xlifepp/Ubuntu24/include -I/usr/include/suitesparse -I/usr/uma/pack/xlifepp/Ubuntu24/ext/Eigen/Eigen -I/usr/lib/x86_64-linux-gnu/openmpi/include -I/usr/lib/x86_64-linux-gnu/openmpi/include/openmpi -I/usr/uma/pack/xlifepp/Ubuntu24/build-g++-13-omp-Release -I/home/uma/fontan/Stage/Sim  -fopenmp -O3 -DNDEBUG -o CMakeFiles/exec-x86_64-linux-g++-13-Release.dir/main.cpp.o -c /home/uma/fontan/Stage/batt_wave/main.cpp",
+  "file": "/home/uma/fontan/Stage/batt_wave/main.cpp",
+  "output": "CMakeFiles/exec-x86_64-linux-g++-13-Release.dir/main.cpp.o"
+}
+]
