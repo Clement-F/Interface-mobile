@@ -7,7 +7,9 @@ The code is scinded into two main parts :
 
 Solving the wave equation
 the /Sim/ directory and simulation files contains the algorithm and they handle the input and output of the solution
+
 the /wave_opt/ directory solves one problem you input on the "data.txt" file and output a /trail/ directory that contains all the info you could want to restart the simulation and see the solution. 
+
 the /batt_wave/ directory solves multiple problems. you input key parameters in the "data.txt" file and you can access 9 other parameters in the "data_batterie.txt" file. The code then outputs multiple /trail/ directories
 
 Displaying the solution
