@@ -7,7 +7,8 @@ using namespace std::filesystem;
 
 
 // ========================== fonction files =============================
-
+// move un fichier d'un point d'origine a un point de destination.
+// cette commande peut s'utiliser dans le script cpp
 void move(const string source, const string destination)
 {
   char cmd[100];
@@ -19,17 +20,24 @@ void move(const string source, const string destination)
   system(cmd);
 }
 // ========================== tool ================================
+
+// donne un pas de temps repondant a une condition CFL simple
 Real give_dt(const Real dspace, const Real max_c){return (CFL/ord) * (dspace/max_c);}
 
-Real splin_exp(const Real x)    // raccort C^infty entre 0,1 sur 0,1
+// raccort C^infty entre 0,1 sur 0,1
+Real splin_exp(const Real x)    
 { 
     return exp(-1/x)*(x>0) / (exp(-1/x)*(x>0)+ exp(-1/(1-x))*(x>0));
 }
-Real splin_lin(const Real x)    // raccort C^1 entre 0,1 sur 0,1
+
+// raccort C^1 entre 0,1 sur 0,1
+Real splin_lin(const Real x)    
 { 
     return x*(x>0)*(x<1) ;
-}
-Real raccord (const Real x, const Real p1,const  Real p2,const Real a, const Real b)    // raccord C infty entre p1 et p2 sur a,b
+}    
+
+// raccord C infty entre p1 et p2 sur a,b
+Real raccord (const Real x, const Real p1,const  Real p2,const Real a, const Real b)
 { 
     // theCout<<"Nealy there \n";
     Real Coeff = (x-a)/(b-a);
@@ -37,50 +45,73 @@ Real raccord (const Real x, const Real p1,const  Real p2,const Real a, const Rea
 } 
 
 // ========================== condition initiales===================================================
-Real u_0(const Point&P, Parameters& pa) // u(x,0) <- u_0(xi) xi = x +ct, pa=(c)
+
+// u(x,0) <- u_0(xi) , xi = x +ct, pa=(c)
+Real u_0(const Point&P, Parameters& pa) 
 { 
-  // cout<<"Start_sol : "<<Start_sol<<" Start_int : "<<Start_int<<" \n";
   Real a =1000; // parametre de concentration de la gaussienne
   Real d = abs(P(1)-Start_sol); 
-  Real R= 0.05;        // source radius
+  Real R= 0.05; // source radius
   Real amp= 1; // source amplitude (constant power)
   return exp(-a*d*d);
 }
-Real u_d(const Point&P, Parameters& pa) // u'(x,0) ou u(x,dt) en fonction des possede_
+
+// u'(x,0) ou u(x,dt) en fonction des possede_
+Real u_d(const Point&P, Parameters& pa) 
 {
+  // rends une valeur exacte de u(x,dt) comme u_0(x-c*dt)
   Real a = 1000,  R= 0.05, amp= 1,d;
   if(uni_dir)d = abs(P(1)-Start_sol - cm*dtime); else d=  abs(P(1)-Start_sol);
   return exp(-a*d*d);
-  // if(mod =="energie") {possede_derive = true; possede_valeur = false;return cm*2*x*a*exp(-a*(x-length/2)*(x-length/2));}
+
+  // rends une approximation de u(x,dt) comme DL 
+  // if(mod =="energie")
+  // {
+  //   possede_derive = true; 
+  //   possede_valeur = false;
+  //   return cm*2*x*a*exp(-a*(x-length/2)*(x-length/2));
+  // }
 }
 
 
 
 // ========================== fonctions de bords pour le cas energie ====================================
+
+// f_2_temp n est definie que sur [0,2T]
 Real f_2_temp(const Real x)
 {  
-    if((0<=x) and (x<=T/2)){return cm*T + vit*x;}
-    if((T/2 <x) and (x<=3*T/2)){return cm*T + (vit*T)/2 - vit*(x-T/2);}
+    if((0<=x) and (x<=T/2))     {return cm*T + vit*x;}
+    if((T/2 <x) and (x<=3*T/2)) {return cm*T + (vit*T)/2 - vit*(x-T/2);}
     if((3*T/2 <x) and (x<=2*T) ){return cm*T - (vit*T)/2 + vit*(x-3*T/2);} 
+
     else {return 0;}
   if(error_verb) theCout<<"error !!!!!!!!! \n";
   return 0;
 }
+
+// f_2 est definie sur [0,+inf] par periodicite de f_2_temp
 Real f_2(const Real x)
 { 
+  // evite un overlap avec f_1 a l'origine
   if(0<=x && x<T/2) return cm*T +vit*T-vit*x;    
 
   Real t_mod = x - floor(x/(2*T)) * 2*T;
+
   if(t_mod<0 and error_verb) error("free_error"," temps negatif sur f_2 \n");
+
   return f_2_temp(t_mod);
   if(error_verb) theCout<<"error !!!!!!!!! \n";
   return 0;
 }
+
+// f_1 est definie sur [0,+inf] par periodicite de f_2_temp
 Real f_1(const Real x)
 {
-  if(0<=x && x<=T) return -vit_abs*T + vit_abs*x;
+  if(0<=x && x<=T)    return -vit_abs*T + vit_abs*x;
   if(T<x && x<=3*T/2) return vit*T - vit*x;
-  else return f_2(x)-cm*T;
+  else                return f_2(x)-cm*T;
+
+  // une situation n a pas ete pris en compte ==> erreur
   if(error_verb) theCout<<"error !!!!!!!!! \n";
   return 0;
 }
@@ -88,24 +119,33 @@ Real f_1(const Real x)
 
 // ========================== choix paramètres ================================
 
+// fonction rho(x,t)
+// la valeur de t est code comme paramètre globale
+
 Real rho(const Point& P, Parameters& pa)
 {   
-
+  // rho est constant sur le domaine
   if(mod=="flat"){return rho_0;}
 
+  // rho change brutalement de valeur en un instant
   if(mod=="Jump")
   {
     if(trho>=tf/4){return  rho_1;} 
     else{return rho_0;}
   }
+
+  // rho change de valeur de maniere periodique
   if(mod=="period"){return rho_0 + rho_1 * sin(wave_length*trho/(2*pi_))*sin(space_length*dot(k,P)/(2*pi_));}
 
+  // probleme d'interface mobile avec fonction raccord si on "regularise" l'interface
   if(mod=="interface"){
     Real x =P(1) -vit*t-Start_int;
       if(x<-epsi){return rho_0;}
       if(x<epsi){return raccord(x,rho_0,rho_1,-epsi,epsi);}
       else{return rho_1;}
   }
+  
+  // probleme d'interface mobile, cas de l'energie croissante avec fonction raccord si on "regularise" l'interface
   if(mod=="energie"){
     Real x1 =f_1(t), x2= f_2(t);
     if(P(1)<x1-epsi) return rho_1; 
@@ -116,6 +156,10 @@ Real rho(const Point& P, Parameters& pa)
 
     else return 100;
   }
+
+  // probleme du "slab"
+  // 2 interfaces, l'une commenceant en 0 et l'autre en Start_int
+  // possibilite de rajouter une regularisation sur la fonction 
   if(mod=="double"){
     Real x1 =P(1) -vit*t;
     Real x2 =P(1) -vit*t-Start_int;
@@ -125,6 +169,14 @@ Real rho(const Point& P, Parameters& pa)
     else return 0.;
   } 
   
+
+  // cas general de l'interface mobile
+  // on definit un domaine i a l'aide de fonction f_i,j
+  // on dit que (x,t) est dans le domaine i si f_i,j(x,t)>0 pour tout j
+  // plus de details dans le cpp
+  // si (x,t) n'appartient pas a un domaine, rho(x,t) = 0
+  // d'ou l'importance de definir tout le demi plan (x,t)
+  // si (x,t) appartient a plus d'un domaine (i,j), rho(x,t) = rho_i + rho_j
   if(mod=="domain")
   {
     Real RHO=0;
@@ -141,6 +193,7 @@ Real rho(const Point& P, Parameters& pa)
   return 0;
 }
 
+// se construit comme la fonction rho
 Real mu(const Point& P, Parameters& pa)
 {
   if(mod=="flat"){return mu_0;}
@@ -194,9 +247,15 @@ Real mu(const Point& P, Parameters& pa)
     if(error_verb) theCout<<"error !!!!!!!!! mu \n";
   return 0;
 }
+
+// est defini sur le bord
+// beta est deja pris comme fonction. d'ou beta_0 
 Real beta_0(const Point& P, Parameters& pa)
 {
+  // condition transparente, la solution sort du domaine, pas de reflexion
   if(cond=="trans"){return sqrt(rho(P)*mu(P));} 
+
+  // condition de Neumann, la solution rebondit sur le bord, reflexion totale.
   if(cond=="neumann"){return 0;}
   
   if(error_verb) theCout<<"error !!!!!!!!! beta \n";
@@ -204,6 +263,16 @@ Real beta_0(const Point& P, Parameters& pa)
 }
 
 // ========================== solution exacte =================================================== 
+
+// rends les solutions exactes du probleme de l'interface mobile
+// il est possible de les generalisee pour le probleme de "slab" ou de l'energie croissante
+
+// due aux pertes de symmetries des regimes supersonique et transoniques, 
+// il est necessaire de preciser si la solution commence a droite ou a gauche de l'interface.
+
+// si il y a un probleme avec la solution exacte (call sur un probleme du regime transsonique ou mauvaise definition)
+// la fonction rends 10 et envoie un message d'erreur pouvant indiquer ou se trouve l'erreur.
+
 Real Fm (const Point&P, Parameters& pa)
 {
   Real xi = P(1)-cm*t;
@@ -332,15 +401,23 @@ Real Gp (const Point&P, Parameters& pa)
   }
   if(error_verb) theCout<<"ERROR_Gp";return 10;
 }
+
+// combine les fonctions precedentes en une seule fonction donnant la solution exacte
+
 Real u_ex(const Point& P, Parameters& pa)
 {
   if(mod == "flat"){ return Fm(P)+Gm(P);}
   if(mod =="interface"){
   if(P(1)-vit*t<Start_int) return (Fm(P)+Gm(P));
   if(P(1)-vit*t>Start_int) return (Fp(P)+Gp(P));
+
+  // dans le cas improbable que l'on demande la solution exactement a l'interface, rends le point milieu
   if(P(1)-vit*t==Start_int) return 0.5*(Fm(P)+Gm(P)) + 0.5 * (Fp(P)+Gp(P));}
   if(error_verb) theCout<<"ERROR_u_ex";return 10;
 } 
+
+// rends le domaine sur lequel on se trouve dans le cas de l'interface mobile
+
 Real interface_func(const Point&P, Parameters& pa)
 {
   if(mu(P)==mu_0 and rho(P)==rho_0) return 0;
@@ -348,21 +425,15 @@ Real interface_func(const Point&P, Parameters& pa)
   else return 0.5;
 }
 
-// ========================== sol exacte interface mobile =================================
-
-// Real Fm (const Point&P, Parameters& pa)
-// {
-//   Real xi = P(1)-cm*t;
-//   Point P_xi = Point(xi);
-//   if(Start_sol<Start_int){ if(xi<Start_int){return 0.5*u_0(P_xi);} else std::cout<<"ERROR FM \n";error_count+=1; return 10;}
-//   if(Start_sol>Start_int){ if(xi>Start_int){return T_trans/2 * u_0()} }
-// }
-
-// ========================== 2nd membre ===================================================
-Real g_1D(const Point& P, Parameters& pa){return 0;}
-Real h(const Real& t, Parameters& pa){return 0;}
+// 2nd membre / terme source
+// tres peu tester, peut etre source de bug
 Real f(const Point& P, Parameters& pa){return 0;}
 
+
+
+// fait tout la simulation en une seule fonction
+// necessaire de definir tout les parametre globaux avant de call la fonction
+// si un parametre est mal definit, la fonction va gueuler. 
 
 void simulation(path dossier_trail)
 { 
@@ -388,7 +459,8 @@ void simulation(path dossier_trail)
       if(0>CFL or CFL>1) error("CFL mal defini");  }
     
   //=========================== declaration ===================================================
-
+    
+  // a defaut de mieux, voici les coefficients CFL empirique en fonction de l'ordre.
     if(false){
     if(ord ==1){CFL = 0.95;}
     if(ord ==2){CFL = 0.8;}
