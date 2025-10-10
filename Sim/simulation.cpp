@@ -5,6 +5,15 @@ using namespace std;
 using namespace std::filesystem;
 
 
+//========================================================================
+//  code fait par Clement Fontan lors d'un stage de M1
+//  Les variables ne sont pas les meilleurs choisi et les noms ne sont pas les meilleurs mais le programme fonctionne
+//  On peut encore voir des vestiges de fonctions qui ont ete faite puis effacer (probablement le meme jour)
+//  Malheureusement n'ayant plus acces a la librairie Xlife, je ne peux pas effacer de bout de code sans compromettre son bon fonctionnement
+//  Je vous incombe donc la tache de modifier comme bon vous semble ce code
+//  Voir le ReadMe pour plus de details sur le fonctionnement du code
+// =======================================================================
+
 
 // ========================== fonction files =============================
 // move un fichier d'un point d'origine a un point de destination.
@@ -425,11 +434,11 @@ Real interface_func(const Point&P, Parameters& pa)
   else return 0.5;
 }
 
-// 2nd membre / terme source
+// ========================== 2nd membre / terme source ===================================================
 // tres peu tester, peut etre source de bug
+Real g_1D(const Point& P, Parameters& pa){return 0;}
+Real h(const Real& t, Parameters& pa){return 0;}
 Real f(const Point& P, Parameters& pa){return 0;}
-
-
 
 // fait tout la simulation en une seule fonction
 // necessaire de definir tout les parametre globaux avant de call la fonction
@@ -439,23 +448,58 @@ void simulation(path dossier_trail)
 { 
 
   //=========================== check data ==============================================
+  // Liste non exhaustive de probleme de parametre
     if(error_verb or error_calc){
+
+      // le temps final n'est pas avant le debut de la simulation
       if(tf<0) error("temps de simulation négatif \n");
+
+      // le domaine possede une longueur positive
       if(length<0) error("domaine de simulation negatif \n");
+
+      // le pas d'espace est positive et inferieur a la longueur du domaine
       if(dspace<0 or dspace>length) error("pas d'espace mal defini \n");
+
+      // l'ordre de la methode est positive
       if(ord<0) error("ordre mal defini \n");
+
+      // la methode n est pas defini si l'on utilise une methode autre que Gauss Legendre (standard) ou Gauss Lobatto
+      // !!!! il faut refaire le code pour faire avec la methode Gauss Legendre, pour le moment seul Gauss Lobatto est codee -> ligne 608
       if(fes!="standard" and fes!="Lobatto") error("subtype mal defini \n");
+
+      // on sauvegarde tout les 'images positive'
       if(savefile<0) error("savefile mal defini \n");
+
+      // on sauvegarde au plus 'images' positive
       if(savepic<0) error("savepic mal defini \n");
+
+      // les parametre physiques sont positif
       if(mu_0<0 or mu_1<0)  error("mu negatif \n");
       if(rho_0<0 or rho_1<0) error("rho negatif \n");
+
       if(cm<0 or cp<0) error("celerite negatif \n");
       if(sm<0 or sp<0) error("permeabilite negatif \n");
+
+      // une periode temporelle est positive
       if(T<0) error("period negative \n");
+
+      // une regularisation est positive
       if(epsi<0) error("regularisation negative \n");
+
+      // on definit les parametre physique soit par rapport aux vitesses :
+      // mu,rho en fonction de sigma et c
+      // ou en fonction des "parametres"
+      // sigma et c en fonction de mu,rho 
       if(choix !="vitesse" and choix!="para") error("choix non defini \n");
+
+      // determine le choix des fonctions rho et mu
+      // si l'on rajoute une methode, ajouter le check
       if(mod !="flat" and mod !="Jump" and mod!="interface" and mod!="period" and mod!="energie" and mod!="double" and mod !="domain") error("model non supportee");
+
+      // determine les conditions au bord
       if(cond !="neumann" and cond!="trans") error("condition non supportee \n");
+
+      // le coefficient CFL est dans [0,1]
       if(0>CFL or CFL>1) error("CFL mal defini");  }
     
   //=========================== declaration ===================================================
@@ -465,24 +509,41 @@ void simulation(path dossier_trail)
     if(ord ==1){CFL = 0.95;}
     if(ord ==2){CFL = 0.8;}
     if(ord ==3){CFL = 0.6;}
-    if(ord >=4){CFL = 0.5;}}
+    if(ord >=4){CFL = 0.5;}
+  }
     theCout<<"la CFL est à "<<CFL<<'\n';
 
     // xlife things
       // mesh
+      // nombre de nodes/noeux
       Number nodes = (int)length/dspace;
 
+      // definit le domaine sur lequel se pose la solution
+      // on peut le remplacer par un domaine 2D simplement
       Segment seg(_xmin=Start_domaine, _xmax=Start_domaine+length, _nnodes=nodes, _domain_name="Omega", _side_names="Gamma");
+
+      // definit le maillage
       Mesh mesh1d(seg, _generator=structured, _name="P1-mesh");
+
+      // definit le domaine de solution a partir du mesh
+      // Omega le domaine interieur, Gamma le domaine du bord
       Domain omega=mesh1d.domain("Omega"), gamma=mesh1d.domain("Gamma");
 
       // interpolation
+      // espace de solution / Galerkin
       Space V(_domain=omega, _FE_type=Lagrange, _FE_subtype=fesub, _order=ord ,_name="V");
+
+      // inconnue et fonction test
+      // important dans Xlife
       Unknown u(V, _name="u");  TestFunction v(u, _name="v");
 
       theCout<<"========================= Mesh & space created ========================"<<'\n';
 
     // time parameters
+    
+      // Grand ennoncee des parametres du probleme
+      // Si il y a un probleme avec le code, premier endroit ou regarder
+      // Aucun parametre ne devrait etre 0
       c_max = max(cm,cp);
       theCout<<" model : "<<mod<<" \n";
       if(mod=="interface"){
@@ -501,53 +562,83 @@ void simulation(path dossier_trail)
       theCout<<" ordre de la méthode : "<<ord<<" \n";
       theCout<<" paramètre de régularisation :"<<epsi<<" \n";
 
+      // Nous evite de recalculer ces constantes, fait gagner du temps de calcul
       Real dt2=dtime*dtime, dt_2= dtime/2, dt_4d3 =1/(4*dtime*dtime*dtime);
 
+      // le nombre de frame ou l'on souhaite avoir des infos
+      // savepic est une frequence de frame ou l'on souhaite avoir des infos
       savefile = min(savefile,Number(ceil(Real(nbt)/savepic)));
       theCout<<" savefile ="<<savefile<<" \n";
 
     // storage creation
-      TermVectors U(nbt, _name="U_sol");  // to store solution at t=ndt  
+      // Stock la solution approchee u en t
+      TermVectors U(nbt, _name="U_sol");  
+
+      // Stock la solution u exacte en t
       TermVectors U_exacts((int)(nbt/savefile)+1, _name="U_ex");
+
+      // Stock l'etat des domaines en t
       TermVectors Interface((int)(nbt/savefile)+1, _name="Inter");
+
+      // Stock la valeur de Rho et Mu en t sur le domaine
       TermVectors RHO((int)(nbt/savefile)+1, _name="RHO");
       TermVectors MU((int)(nbt/savefile)+1, _name="MU");
 
+      // Stock l'energie au temps t
       std::vector<Real> E((int)(nbt/savefile)+1); 
+
+      // Stock les erreur L2 et H1 au temps t
       std::vector<Real> ErrorL2((int)(nbt/savefile)+1), ErrorL2_relat((int)(nbt/savefile)+1);
       std::vector<Real> ErrorH1((int)(nbt/savefile)+1), ErrorH1_relat((int)(nbt/savefile)+1);
       theCout<<"========================= Storage created ========================"<<'\n';
 
     // cond initial
+
+      // vecteur de bases definit sur le domaine omega
       TermVector zeros(u, omega, 0.), ones(u,omega,1.);
-      TermVector U0(u,omega,u_0,_name="U_sol"),  U1(u,omega,u_d,_name="U_sol"); // Condition initiales
+
+      // Conditions initiales
+      TermVector U0(u,omega,u_0,_name="U_sol"),  U1(u,omega,u_d,_name="U_sol"); 
+    
+      // max de l'erreur sur la simulation
       Real max_Error_L2=0., max_Error_relat_L2=0.;
       Real max_Error_H1=0., max_Error_relat_H1=0.;
-
+    
+      // initialise U
       U(1)= U0;
 
       // theCout<<"normes des premiers termes "<<norminfty(U0)<<" "<<norminfty(U1)<<endl;
       theCout<<"========================= Cond init set ========================"<<'\n';
 
-    // definition des formes
+      // definition des formes
       t=0;
       trho = t+dt_2; 
 
+      // !!!! les formes ne sont definit que pour GaussLobatto
+      // pour avoir du Gauss Lagrange (standard), il faut redefinir cette partie
       BilinearForm a = intg(omega, mu*grad(u)|grad(v), _quad = GaussLobatto, _order =2*ord-1);
       BilinearForm m = intg(omega, rho*u*v, _quad = GaussLobatto, _order =(2*ord-1));
       BilinearForm b = intg(gamma, beta_0*u*v, _quad = GaussLobatto, _order =(2*ord-1));
       LinearForm   l = intg(omega, f*v, _quad = GaussLobatto, _order =2*ord-1);
 
+      // declaration des differentes matrices EF
       TermMatrix Masse = TermMatrix(intg(omega, u*v, _quad = GaussLobatto, _order =(2*ord-1)));   
       TermMatrix Rigid = TermMatrix(intg(omega, grad(u)|grad(v) , _quad = GaussLobatto, _order =(2*ord-1)));
       TermMatrix An =   TermMatrix(a,_name="An_"+tostring(t)); 
       TermMatrix Mnp1 = TermMatrix(m,_name="M_"+tostring(t)); 
 
       TermMatrix L;     ldltFactorize(Mnp1, L);
+
+      // approximation a l'ordre 2 de la solution au temps dt
       TermVector U2 =   factSolve(L, dt2*U0);
+
+      // si la solution se dirige dans une seul direction ( la derivee est non nulle ), l'approximation est fausse -> solution exacte par u_d
+      // si la solution ne se dirige pas dans une seul direction ( la derivee est nulle ), l'approximation est d'ordre 2 -> on l'utilise
+      // oui le noms des variables sont mal choisi
       if(uni_dir){U(2)=U1; theCout<<"hiiiiiiiiii"<<'\n';}
       else{U(2) = U0 - 0.5* U2 ;theCout<<"heyyyyyyyyyy"<<'\n';}
       
+      // j'etais curieux de la taille de l'approximation
       saveToFile("U1",U(1)-U(2),_format=raw);
 
       theCout<<"========================= Form defined ========================"<<'\n';
@@ -559,7 +650,11 @@ void simulation(path dossier_trail)
 
       Real tmat=0., tsmb=0., tinv=0., tsol=0., tproc=0.; //temps de calculs
 
+      // derniere declaration du probleme
+      // si il y a un probleme, c'est le dernier moment pour le voir
+      // aucun parametre ne devrait etre 0
       theCout<<"paramètres utilisée (rho, mu, c, sigma) : \n";
+
       theCout<<"milieu 0: "<<rho_0<<" ;"<<mu_0<<" ;"<<cm<<" ;"<<sm<<" \n";
       theCout<<"milieu 1: "<<rho_1<<" ;"<<mu_1<<" ;"<<cp<<" ;"<<sp<<" \n";
 
@@ -569,7 +664,7 @@ void simulation(path dossier_trail)
         theCout<<"les coeffs de reflexion, transmissions sont : R ="<<R_ref<<" T="<<T_trans<<" \n";
         theCout<<"les coeffs de contraction dilatation sont : tau_1="<<tau_1<<" tau_2="<<tau_2<<" tau_3="<<tau_3<<" tau_4="<<tau_4<<" \n";
 
-
+      // declaration des dernier matrices que l'on va utiliser.
       TermMatrix M1_temp, M2_temp, M_moy;
       TermMatrix Bn, MB;
       TermVector Fn, G, Err, U_1, U_2, MBv;    
@@ -591,6 +686,10 @@ void simulation(path dossier_trail)
       // inversion de la matrice MB
       MB = Mnp1 + dt_2*Bn ;
       if(fesub==_standard) ldltFactorize(MB, L);  else L=inverse(MB);
+
+      // tentative "d'accelerer" le calcul
+      // il est possible que ce soit exactement le meme calcul qui est fait en arriere plan lorsque l'on demande inverse(MB)
+
       // if(MB.isDiagonal())
       // {
       //   MBv = MB*ones;
@@ -598,67 +697,90 @@ void simulation(path dossier_trail)
       //   L = TermMatrix(MBv,_name="MB"+tostring(t));
       // }
       // else {ldltFactorize(MB, L);}
+
       L.name("L");
       tinv+=elapsedTime();
 
-      // schéma numérique
+      // schema numerique
       Fn = TermVector(l,_name="Fn_"+tostring(t));
       G = - Mn*U(n-1) + dt_2*Bn*U(n-1) + (Mnp1+Mn)*U(n) + dt2*(Fn-An*U(n));
       tsmb+=elapsedTime();
 
-      // résolution du système implicite
+      // resolution du systeme implicite
       U(n+1)=L*G;
       tsol+=elapsedTime();
 
 
       if((n)%savefile ==0){      //traitement de donnees
+        // calcul de l'energie au temps t
         E[(int)n/savefile] = abs(0.5/dt2 * (Mnp1 * U(n+1)-Mnp1*U(n))|(U(n+1)-U(n))) +0.5 * abs(An*U(n+1)|U(n)); 
 
         theCout<<"========= "<<test_nombre<< " =============== "<<n<<" =============== " <<(Real(n)/nbt)*tf<<" ========================= \n";
+
+        // regarde quelques parametres interessant nous permettant de juger de la stabilite de la solution rapidement
+        // cela ne garantie aucunement de la regularite de la solution et encore moins de sa validite
+        // juste qu'elle n'explose pas
         Real normU = norminfty(U(n));
         theCout<<"amplitude numerique : "<<normU<<" \n";
         theCout<<"energie             : "<<E[(int)n/savefile]<<'\n';
         theCout<<floor(Real(n)/nbt*10000)/100<<"%"<<" du calcul fini: "<<n<<"/"<<nbt<<" \n";
         }
         tproc+=elapsedTime();
+
+        // les matrices n+1 au temps n deviennent les matrices n au temps n+1
+        // evite de les recalculee 
         Mn=Mnp1;
         Anm1 = An;
     }
 
   // ========================== Out of the loop============================================================
 
-    
+    // quelques parametres utiles pour voir si il y a eu des problemes
     theCout<<"le counter est à : "<<counter<<"\n";
     theCout<<"il y a eu : "<<error_count<<" erreurs \n";
-    theCout<<"l'erreur maximal est : "<<max_Error_L2<<" \n";
+
+    // max_Error_L2 n'est actuellement pas update dans la boucle, il faudrait l'update dans la partie traitement de donnees
+    theCout<<"l'erreur maximal est : "<<max_Error_L2<<" \n"; 
     
     if(savefile>0)
     {
       elapsedTime();
       Real tsave=0.;
       theCout<<"========================= save to file ========================"<<'\n';      
-      for (Number n=savefile, indice =1; n<=nbt; n+=savefile, indice+=1){
+      for (Number n=savefile, indice =1; n<=nbt; n+=savefile, indice+=1)  // la boucle fait un lien implicite entre savefile t et n
+      { 
         t = n*dtime -dtime-dt_2  ; trho = t+dt_2;
         theCout<<"t ="<<t<<" trho ="<<trho<<" n="<<n<<" indice ="<<indice<<'\n';
+
+        // calcule la solution exacte au temps t 
         U_exacts(indice) = TermVector(u,omega,u_ex);
-        Err =U(n)-U_exacts(indice);
 
-        ErrorL2[indice] = abs((Masse*Err|Err));
-        ErrorL2_relat[indice] = ErrorL2[indice]/abs((Masse*U_exacts(indice)|U_exacts(indice)));
-        if(ErrorL2[indice]>max_Error_L2) max_Error_L2 = ErrorL2[indice];
-        if(ErrorL2_relat[indice]>max_Error_relat_L2) max_Error_relat_L2 = ErrorL2_relat[indice];
+      // calcule l'erreur au temps t
+        Err =U(n)-U_exacts(indice);                                                               // U-U_ex
+
+        // calcules des erreurs L2
+        ErrorL2[indice] = abs((Masse*Err|Err));                                                   // int(M*(U-U_ex)*(U-U_ex))
+        ErrorL2_relat[indice] = ErrorL2[indice]/abs((Masse*U_exacts(indice)|U_exacts(indice)));   // int(M*(U-U_ex)*(U-U_ex))/ int(M * U_ex*U_ex)
+        if(ErrorL2[indice]>max_Error_L2) max_Error_L2 = ErrorL2[indice];                          // max_t int(M*(U-U_ex)*(U-U_ex))
+        if(ErrorL2_relat[indice]>max_Error_relat_L2) max_Error_relat_L2 = ErrorL2_relat[indice];  // max_t int(M*(U-U_ex)*(U-U_ex))/ int(M * U_ex*U_ex)
         
-        ErrorH1[indice] = abs((Rigid*Err|Err));
-        ErrorH1_relat[indice] = ErrorH1[indice]/abs((Rigid*U_exacts(indice)|U_exacts(indice)));
-        if(ErrorH1[indice]>max_Error_H1) max_Error_H1 = ErrorH1[indice];
-        if(ErrorH1_relat[indice]>max_Error_relat_H1) max_Error_relat_H1 = ErrorH1_relat[indice];
+        // calcules des erreurs H1
+        ErrorH1[indice] = abs((Rigid*Err|Err));                                                   // int(K*(U-U_ex)*(U-U_ex))
+        ErrorH1_relat[indice] = ErrorH1[indice]/abs((Rigid*U_exacts(indice)|U_exacts(indice)));   // int(K*(U-U_ex)*(U-U_ex))/ int(K * U_ex*U_ex)
+        if(ErrorH1[indice]>max_Error_H1) max_Error_H1 = ErrorH1[indice];                          // max_t int(K*(U-U_ex)*(U-U_ex))
+        if(ErrorH1_relat[indice]>max_Error_relat_H1) max_Error_relat_H1 = ErrorH1_relat[indice];  // max_t int(K*(U-U_ex)*(U-U_ex))/ int(K * U_ex*U_ex)
 
+
+        // calcules des domaines / valeur des parametres au temps t
         Interface(indice) = TermVector(u,omega,interface_func);
         RHO(indice) = TermVector(u,omega,rho);
         MU(indice)  = TermVector(u,omega,mu);
+
         TermVector U_tosave = U(n); 
 
 
+        // sauvegarde les solutions au temps t
+        // raw ne prends que les valeurs et .vtu est un format particulier permettant une exportation vers paraview
         // U_exacts(indice) = TermVector(u,omega,u_ex);
         U_tosave.name("Usol"); Interface(indice).name("Int"); U_exacts(indice).name("Uex");
         RHO(indice).name("rho"); MU(indice).name("mu");
@@ -667,6 +789,9 @@ void simulation(path dossier_trail)
         saveToFile("Int"+tostring(indice)+"_trail",Interface(indice),_format=raw);
         saveToFile("Rho"+tostring(indice)+"_trail",RHO(indice),_format=raw);
         saveToFile("Mu"+tostring(indice)+"_trail",MU(indice),_format=raw);
+
+
+        // place les fichiers dans un dossier pre defini
 
         // move("U"+tostring(indice)+"_film.vtu", dossier_film);
         // move("Interface"+tostring(indice)+"_film.vtu", dossier_film);
@@ -678,6 +803,7 @@ void simulation(path dossier_trail)
         theCout<<"------ post traitement-------"<<n<<"/"<<nbt<<" \n";
       } 
 
+      // Sauvegarde et place divers fichier avec parametres
       std::ofstream myfile;
       myfile.open("E_trail.txt");
       for (Number i=0; i<=((int)nbt/savefile - 1) ;i++ ){myfile<<E[i]<<"\n";}
@@ -695,7 +821,8 @@ void simulation(path dossier_trail)
       move("ErrorH1_trail.txt", dossier_trail);
 
 
-
+      // compiles divers parametres du probleme
+      // donnees physiques, numeriques et temps de calcul pour une analyse simple 
       myfile.open("data_trail.txt");
       myfile<<"ordre: "<<ord<<'\n'<<"dx: "<<dspace<<'\n';
       myfile<<"c_m: "<<cm<<" \n"<<"c_p: "<<cp<<" \n"<<"v: "<<vit<<" \n"<<"s_m: "<<sm<<" \n"<<"s_p: "<<sp<<" \n";
@@ -716,6 +843,14 @@ void simulation(path dossier_trail)
       theCout<<"erreur maximal H1: "<<max_Error_H1<<"  erreur_maximal relative_H1: "<<max_Error_relat_H1<<" \n";
     }
 }
+
+
+
+// Pour faire un test sur plusieurs parametres, ou un test sur un parametres avec plusieurs ordre de grandeurs (convergence)
+// le test standard prends divers positions initiales de l'interface S_d et de la solution S_s et divers vitesses de l'interface V
+// et rends un test sur les 12 cas test de l'interface mobile a vitesse constante. 
+
+// si le mod n'est pas interface, il prends les meme positions et vitesses et test un seul probleme.
 
 void test_standard(path dossier,const vector<Real> S_s, const vector<Real> S_d,const vector<Real> V){
   
