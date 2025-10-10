@@ -1,5 +1,5 @@
  XLiFE++ v3.0.97 (2025-07-09)
- running on 30.jul.2025 at 10h30 on Linux-x86_64 (menetou), 48 available threads
+ running on 27.aug.2025 at 17h08 on Linux-x86_64 (moulis), 24 available threads
 
 Machine epsilon                     theEpsilon_= 2.22045e-16
 Greatest real number (real_t)       theRealMax_= 1.79769e+308
@@ -10,1135 +10,630 @@ Greatest unsigned (number_t)      theNumberMax_= 18446744073709551615
 Greatest address (size_t)           theSizeMax_= 18446744073709551615
 Greatest dimension (dimen_t)         theDimMax_= 65535
 -------------------------------------------------------------
-Domaines crées 
-Domaines ajouté 
-la CFL est à 0.95
+la CFL est à 0.8
 ========================= Mesh & space created ========================
  model : interface 
- régime subsonique 
- célérité maximal : 2 
- nombre de pas de temps :2105 pas de temps :0.000475
+ régime supersonique 
+ célérité maximal : 1 
+ nombre de pas de temps :2500 pas de temps :0.0004
  les bords du domaines sont : -0.5 et 0.5
  la solution commence en :-0.2
- nombre de noeuds : 1000
- ordre de la méthode : 1 
- paramètre de régularisation :0 
- savefile =21 
+ nombre de noeuds : 2000
+ ordre de la méthode : 2 
+ paramètre de régularisation :0.01 
+ savefile =25 
 ========================= Storage created ========================
-normes des premiers termes 0.99991 0.99991
 ========================= Cond init set ========================
+heyyyyyyyyyy
 ========================= Form defined ========================
 paramètres utilisée (rho, mu, c, sigma) : 
 milieu 0: 5 ;5 ;1 ;5 
-milieu 1: 1.5 ;6 ;2 ;3 
-vitesse = 0.5 
-les coeffs de reflexion, transmissions sont : R =-0.25 T=0.75 
-les coeffs de contraction dilatation sont : tau_1=3 tau_2=3 tau_3=0 tau_4=0 
+milieu 1: 833333 ;300000 ;0.6 ;500000 
+vitesse = -3 
+les coeffs de reflexion, transmissions sont : R =0.499995 T=0.500005 
+les coeffs de contraction dilatation sont : tau_1=0.9 tau_2=-1.8 tau_3=1.2 tau_4=0.6 
 ========================= loop ========================
-========= 0 =============== 21 =============== 0.00997625 ========================= 
-amplitude exacte    : 0.917715
-amplitude numerique : 0.917786 
-energie             : 99.0584
-difference max      : 7.16822e-05 
-erreur              : 0.000383434 
-erreur relative     : 6.34906e-05 
-le max de l'erreur  : 0.000383434 
-max erreur relat    : 6.34906e-05 
-0.9% du calcul fini: 21/2105 
-========= 0 =============== 42 =============== 0.0199525 ========================= 
-amplitude exacte    : 0.690662
-amplitude numerique : 0.690747 
-energie             : 99.0584
-difference max      : 8.48812e-05 
-erreur              : 0.00049549 
-erreur relative     : 9.16309e-05 
-le max de l'erreur  : 0.00049549 
-max erreur relat    : 9.16309e-05 
-1.9% du calcul fini: 42/2105 
-========= 0 =============== 63 =============== 0.0299287 ========================= 
-amplitude exacte    : 0.518796
-amplitude numerique : 0.518816 
-energie             : 99.0584
-difference max      : 5.56409e-05 
-erreur              : 0.000472955 
-erreur relative     : 9.77943e-05 
-le max de l'erreur  : 0.00049549 
-max erreur relat    : 9.77943e-05 
-2.9% du calcul fini: 63/2105 
-========= 0 =============== 84 =============== 0.039905 ========================= 
-amplitude exacte    : 0.501052
-amplitude numerique : 0.501079 
-energie             : 99.0584
-difference max      : 7.42577e-05 
-erreur              : 0.00061255 
-erreur relative     : 0.000134587 
-le max de l'erreur  : 0.00061255 
-max erreur relat    : 0.000134587 
-3.9% du calcul fini: 84/2105 
-========= 0 =============== 105 =============== 0.0498812 ========================= 
-amplitude exacte    : 0.500013
-amplitude numerique : 0.500039 
-energie             : 99.0584
-difference max      : 0.000106812 
-erreur              : 0.000888022 
-erreur relative     : 0.000198795 
-le max de l'erreur  : 0.000888022 
-max erreur relat    : 0.000198795 
-4.9% du calcul fini: 105/2105 
-========= 0 =============== 126 =============== 0.0598575 ========================= 
-amplitude exacte    : 0.499976
-amplitude numerique : 0.500001 
-energie             : 99.0584
-difference max      : 0.00012914 
-erreur              : 0.00108637 
-erreur relative     : 0.000244052 
-le max de l'erreur  : 0.00108637 
-max erreur relat    : 0.000244052 
-5.9% du calcul fini: 126/2105 
-========= 0 =============== 147 =============== 0.0698337 ========================= 
-amplitude exacte    : 0.499967
-amplitude numerique : 0.499992 
-energie             : 99.0584
-difference max      : 0.000148975 
-erreur              : 0.00124638 
-erreur relative     : 0.000280116 
-le max de l'erreur  : 0.00124638 
-max erreur relat    : 0.000280116 
-6.9% du calcul fini: 147/2105 
-========= 0 =============== 168 =============== 0.07981 ========================= 
-amplitude exacte    : 0.499957
-amplitude numerique : 0.499985 
-energie             : 99.0584
-difference max      : 0.000168791 
-erreur              : 0.00141274 
-erreur relative     : 0.000317515 
-le max de l'erreur  : 0.00141274 
-max erreur relat    : 0.000317515 
-7.9% du calcul fini: 168/2105 
-========= 0 =============== 189 =============== 0.0897862 ========================= 
-amplitude exacte    : 0.499963
-amplitude numerique : 0.499995 
-energie             : 99.0584
-difference max      : 0.000188587 
-erreur              : 0.0015854 
-erreur relative     : 0.000356321 
-le max de l'erreur  : 0.0015854 
-max erreur relat    : 0.000356321 
-8.9% du calcul fini: 189/2105 
-========= 0 =============== 210 =============== 0.0997625 ========================= 
-amplitude exacte    : 0.499972
-amplitude numerique : 0.500004 
-energie             : 99.0584
-difference max      : 0.000208417 
-erreur              : 0.00175965 
-erreur relative     : 0.000395483 
-le max de l'erreur  : 0.00175965 
-max erreur relat    : 0.000395483 
-9.9% du calcul fini: 210/2105 
-========= 0 =============== 231 =============== 0.109739 ========================= 
-amplitude exacte    : 0.499979
-amplitude numerique : 0.500011 
-energie             : 99.0584
-difference max      : 0.000228282 
-erreur              : 0.00193429 
-erreur relative     : 0.000434734 
-le max de l'erreur  : 0.00193429 
-max erreur relat    : 0.000434734 
-10.9% du calcul fini: 231/2105 
-========= 0 =============== 252 =============== 0.119715 ========================= 
-amplitude exacte    : 0.499986
-amplitude numerique : 0.500017 
-energie             : 99.0584
-difference max      : 0.000248134 
-erreur              : 0.00210914 
-erreur relative     : 0.000474032 
-le max de l'erreur  : 0.00210914 
-max erreur relat    : 0.000474032 
-11.9% du calcul fini: 252/2105 
-========= 0 =============== 273 =============== 0.129691 ========================= 
-amplitude exacte    : 0.499991
-amplitude numerique : 0.500022 
-energie             : 99.0584
-difference max      : 0.000267973 
-erreur              : 0.00228415 
-erreur relative     : 0.000513366 
-le max de l'erreur  : 0.00228415 
-max erreur relat    : 0.000513366 
-12.9% du calcul fini: 273/2105 
-========= 0 =============== 294 =============== 0.139667 ========================= 
-amplitude exacte    : 0.499995
-amplitude numerique : 0.500025 
-energie             : 99.0584
-difference max      : 0.000287837 
-erreur              : 0.00245928 
-erreur relative     : 0.000552727 
-le max de l'erreur  : 0.00245928 
-max erreur relat    : 0.000552727 
-13.9% du calcul fini: 294/2105 
-========= 0 =============== 315 =============== 0.149644 ========================= 
-amplitude exacte    : 0.499998
-amplitude numerique : 0.500027 
-energie             : 99.0584
-difference max      : 0.000307779 
-erreur              : 0.00263451 
-erreur relative     : 0.000592111 
-le max de l'erreur  : 0.00263451 
-max erreur relat    : 0.000592111 
-14.9% du calcul fini: 315/2105 
-========= 0 =============== 336 =============== 0.15962 ========================= 
-amplitude exacte    : 0.5
-amplitude numerique : 0.500028 
-energie             : 99.0584
-difference max      : 0.000327714 
-erreur              : 0.00280983 
-erreur relative     : 0.000631512 
-le max de l'erreur  : 0.00280983 
-max erreur relat    : 0.000631512 
-15.9% du calcul fini: 336/2105 
-========= 0 =============== 357 =============== 0.169596 ========================= 
-amplitude exacte    : 0.5
-amplitude numerique : 0.500027 
-energie             : 99.0584
-difference max      : 0.00034764 
-erreur              : 0.00298521 
-erreur relative     : 0.000670929 
-le max de l'erreur  : 0.00298521 
-max erreur relat    : 0.000670929 
-16.9% du calcul fini: 357/2105 
-========= 0 =============== 378 =============== 0.179572 ========================= 
-amplitude exacte    : 0.499999
-amplitude numerique : 0.500025 
-energie             : 99.0584
-difference max      : 0.000367556 
-erreur              : 0.00316066 
-erreur relative     : 0.000710363 
-le max de l'erreur  : 0.00316066 
-max erreur relat    : 0.000710363 
-17.9% du calcul fini: 378/2105 
-========= 0 =============== 399 =============== 0.189549 ========================= 
-amplitude exacte    : 0.499997
-amplitude numerique : 0.500021 
-energie             : 99.0584
-difference max      : 0.000387463 
-erreur              : 0.00333626 
-erreur relative     : 0.000749829 
-le max de l'erreur  : 0.00333626 
-max erreur relat    : 0.000749829 
-18.9% du calcul fini: 399/2105 
-========= 0 =============== 420 =============== 0.199525 ========================= 
-amplitude exacte    : 0.499994
-amplitude numerique : 0.500016 
-energie             : 99.0584
-difference max      : 0.000407359 
-erreur              : 0.00351238 
-erreur relative     : 0.000789413 
-le max de l'erreur  : 0.00351238 
-max erreur relat    : 0.000789413 
-19.9% du calcul fini: 420/2105 
-========= 0 =============== 441 =============== 0.209501 ========================= 
-amplitude exacte    : 0.499989
-amplitude numerique : 0.50001 
-energie             : 99.0584
-difference max      : 0.000427304 
-erreur              : 0.00369093 
-erreur relative     : 0.000829541 
-le max de l'erreur  : 0.00369093 
-max erreur relat    : 0.000829541 
-20.9% du calcul fini: 441/2105 
-========= 0 =============== 462 =============== 0.219477 ========================= 
-amplitude exacte    : 0.499984
-amplitude numerique : 0.500012 
-energie             : 99.0581
-difference max      : 0.000447291 
-erreur              : 0.00388083 
-erreur relative     : 0.000872221 
-le max de l'erreur  : 0.00388083 
-max erreur relat    : 0.000872221 
-21.9% du calcul fini: 462/2105 
-========= 0 =============== 483 =============== 0.229454 ========================= 
-amplitude exacte    : 0.499983
-amplitude numerique : 0.500018 
-energie             : 99.0544
-difference max      : 0.000467379 
-erreur              : 0.00412271 
-erreur relative     : 0.000926586 
-le max de l'erreur  : 0.00412271 
-max erreur relat    : 0.000926586 
-22.9% du calcul fini: 483/2105 
-========= 0 =============== 504 =============== 0.23943 ========================= 
-amplitude exacte    : 0.499988
-amplitude numerique : 0.500023 
-energie             : 99.011
-difference max      : 0.000487909 
-erreur              : 0.00458921 
-erreur relative     : 0.00103145 
-le max de l'erreur  : 0.00458921 
-max erreur relat    : 0.00103145 
-23.9% du calcul fini: 504/2105 
-========= 0 =============== 525 =============== 0.249406 ========================= 
-amplitude exacte    : 0.499989
-amplitude numerique : 0.50003 
-energie             : 98.6817
-difference max      : 0.000826064 
-erreur              : 0.00586123 
-erreur relative     : 0.00131751 
-le max de l'erreur  : 0.00586123 
-max erreur relat    : 0.00131751 
-24.9% du calcul fini: 525/2105 
-========= 0 =============== 546 =============== 0.259382 ========================= 
-amplitude exacte    : 0.49998
-amplitude numerique : 0.500045 
-energie             : 97.0851
-difference max      : 0.00169295 
-erreur              : 0.0092623 
-erreur relative     : 0.00208394 
-le max de l'erreur  : 0.0092623 
-max erreur relat    : 0.00208394 
-25.9% du calcul fini: 546/2105 
-========= 0 =============== 567 =============== 0.269359 ========================= 
-amplitude exacte    : 0.499941
-amplitude numerique : 0.500087 
-energie             : 92.2846
-difference max      : 0.00331452 
-erreur              : 0.0168547 
-erreur relative     : 0.00380959 
-le max de l'erreur  : 0.0168547 
-max erreur relat    : 0.00380959 
-26.9% du calcul fini: 567/2105 
-========= 0 =============== 588 =============== 0.279335 ========================= 
-amplitude exacte    : 0.499923
-amplitude numerique : 0.500212 
-energie             : 83.8526
-difference max      : 0.00616804 
-erreur              : 0.0314362 
-erreur relative     : 0.00721962 
-le max de l'erreur  : 0.0314362 
-max erreur relat    : 0.00721962 
-27.9% du calcul fini: 588/2105 
-========= 0 =============== 609 =============== 0.289311 ========================= 
-amplitude exacte    : 0.499909
-amplitude numerique : 0.500528 
-energie             : 76.3527
-difference max      : 0.0109344 
-erreur              : 0.0572968 
-erreur relative     : 0.0136859 
-le max de l'erreur  : 0.0572968 
-max erreur relat    : 0.0136859 
-28.9% du calcul fini: 609/2105 
-========= 0 =============== 630 =============== 0.299287 ========================= 
-amplitude exacte    : 0.499894
-amplitude numerique : 0.501305 
-energie             : 74.2663
-difference max      : 0.0185103 
-erreur              : 0.100799 
-erreur relative     : 0.0258182 
-le max de l'erreur  : 0.100799 
-max erreur relat    : 0.0258182 
-29.9% du calcul fini: 630/2105 
-========= 0 =============== 651 =============== 0.309264 ========================= 
-amplitude exacte    : 0.496954
-amplitude numerique : 0.503073 
-energie             : 73.1497
-difference max      : 0.0301549 
-erreur              : 0.169594 
-erreur relative     : 0.0475243 
-le max de l'erreur  : 0.169594 
-max erreur relat    : 0.0475243 
-30.9% du calcul fini: 651/2105 
-========= 0 =============== 672 =============== 0.31924 ========================= 
-amplitude exacte    : 0.493438
-amplitude numerique : 0.506857 
-energie             : 66.6531
-difference max      : 0.0484135 
-erreur              : 0.273979 
-erreur relative     : 0.0833805 
-le max de l'erreur  : 0.273979 
-max erreur relat    : 0.0833805 
-31.9% du calcul fini: 672/2105 
-========= 0 =============== 693 =============== 0.329216 ========================= 
-amplitude exacte    : 0.487133
-amplitude numerique : 0.513302 
-energie             : 57.3917
-difference max      : 0.0701915 
-erreur              : 0.421848 
-erreur relative     : 0.135741 
-le max de l'erreur  : 0.421848 
-max erreur relat    : 0.135741 
-32.9% du calcul fini: 693/2105 
-========= 0 =============== 714 =============== 0.339192 ========================= 
-amplitude exacte    : 0.47699
-amplitude numerique : 0.525244 
-energie             : 50.8989
-difference max      : 0.0972279 
-erreur              : 0.620982 
-erreur relative     : 0.206709 
-le max de l'erreur  : 0.620982 
-max erreur relat    : 0.206709 
-33.9% du calcul fini: 714/2105 
-========= 0 =============== 735 =============== 0.349169 ========================= 
-amplitude exacte    : 0.462073
-amplitude numerique : 0.540429 
-energie             : 47.9111
-difference max      : 0.127767 
-erreur              : 0.876743 
-erreur relative     : 0.298984 
-le max de l'erreur  : 0.876743 
-max erreur relat    : 0.298984 
-34.9% du calcul fini: 735/2105 
-========= 0 =============== 756 =============== 0.359145 ========================= 
-amplitude exacte    : 0.442614
-amplitude numerique : 0.5598 
-energie             : 46.4926
-difference max      : 0.16085 
-erreur              : 1.1849 
-erreur relative     : 0.410864 
-le max de l'erreur  : 1.1849 
-max erreur relat    : 0.410864 
-35.9% du calcul fini: 756/2105 
-========= 0 =============== 777 =============== 0.369121 ========================= 
-amplitude exacte    : 0.420427
-amplitude numerique : 0.582823 
-energie             : 45.562
-difference max      : 0.193303 
-erreur              : 1.53636 
-erreur relative     : 0.533962 
-le max de l'erreur  : 1.53636 
-max erreur relat    : 0.533962 
-36.9% du calcul fini: 777/2105 
-========= 0 =============== 798 =============== 0.379097 ========================= 
-amplitude exacte    : 0.398961
-amplitude numerique : 0.603298 
-energie             : 44.9506
-difference max      : 0.22154 
-erreur              : 1.91573 
-erreur relative     : 0.652466 
-le max de l'erreur  : 1.91573 
-max erreur relat    : 0.652466 
-37.9% du calcul fini: 798/2105 
-========= 0 =============== 819 =============== 0.389074 ========================= 
-amplitude exacte    : 0.382554
-amplitude numerique : 0.618953 
-energie             : 44.6384
-difference max      : 0.241219 
-erreur              : 2.30012 
-erreur relative     : 0.749244 
-le max de l'erreur  : 2.30012 
-max erreur relat    : 0.749244 
-38.9% du calcul fini: 819/2105 
-========= 0 =============== 840 =============== 0.39905 ========================= 
-amplitude exacte    : 0.37505
-amplitude numerique : 0.624973 
-energie             : 44.5715
-difference max      : 0.249923 
-erreur              : 2.66628 
-erreur relative     : 0.816565 
-le max de l'erreur  : 2.66628 
-max erreur relat    : 0.816565 
-39.9% du calcul fini: 840/2105 
-========= 0 =============== 861 =============== 0.409026 ========================= 
-amplitude exacte    : 0.374998
-amplitude numerique : 0.624981 
-energie             : 44.5481
-difference max      : 0.251877 
-erreur              : 2.99321 
-erreur relative     : 0.857256 
-le max de l'erreur  : 2.99321 
-max erreur relat    : 0.857256 
-40.9% du calcul fini: 861/2105 
-========= 0 =============== 882 =============== 0.419002 ========================= 
-amplitude exacte    : 0.374997
-amplitude numerique : 0.625027 
-energie             : 44.3384
-difference max      : 0.251434 
-erreur              : 3.26572 
-erreur relative     : 0.879056 
-le max de l'erreur  : 3.26572 
-max erreur relat    : 0.879056 
-41.9% du calcul fini: 882/2105 
-========= 0 =============== 903 =============== 0.428979 ========================= 
-amplitude exacte    : 0.374995
-amplitude numerique : 0.625125 
-energie             : 43.8175
-difference max      : 0.251218 
-erreur              : 3.47714 
-erreur relative     : 0.889498 
-le max de l'erreur  : 3.47714 
-max erreur relat    : 0.889498 
-42.8% du calcul fini: 903/2105 
-========= 0 =============== 924 =============== 0.438955 ========================= 
-amplitude exacte    : 0.374993
-amplitude numerique : 0.625199 
-energie             : 43.035
-difference max      : 0.252024 
-erreur              : 3.6286 
-erreur relative     : 0.893738 
-le max de l'erreur  : 3.6286 
-max erreur relat    : 0.893738 
-43.8% du calcul fini: 924/2105 
-========= 0 =============== 945 =============== 0.448931 ========================= 
-amplitude exacte    : 0.374991
-amplitude numerique : 0.625768 
-energie             : 42.105
-difference max      : 0.252675 
-erreur              : 3.72894 
-erreur relative     : 0.8951 
-le max de l'erreur  : 3.72894 
-max erreur relat    : 0.8951 
-44.8% du calcul fini: 945/2105 
-========= 0 =============== 966 =============== 0.458907 ========================= 
-amplitude exacte    : 0.374991
-amplitude numerique : 0.625822 
-energie             : 41.2037
-difference max      : 0.253122 
-erreur              : 3.78969 
-erreur relative     : 0.895236 
-le max de l'erreur  : 3.78969 
-max erreur relat    : 0.895236 
-45.8% du calcul fini: 966/2105 
-========= 0 =============== 987 =============== 0.468884 ========================= 
-amplitude exacte    : 0.374994
-amplitude numerique : 0.625329 
-energie             : 40.4287
-difference max      : 0.253044 
-erreur              : 3.82325 
-erreur relative     : 0.895064 
-le max de l'erreur  : 3.82325 
-max erreur relat    : 0.895236 
-46.8% du calcul fini: 987/2105 
-========= 0 =============== 1008 =============== 0.47886 ========================= 
-amplitude exacte    : 0.374996
-amplitude numerique : 0.625576 
-energie             : 39.6915
-difference max      : 0.252343 
-erreur              : 3.83934 
-erreur relative     : 0.894971 
-le max de l'erreur  : 3.83934 
-max erreur relat    : 0.895236 
-47.8% du calcul fini: 1008/2105 
-========= 0 =============== 1029 =============== 0.488836 ========================= 
-amplitude exacte    : 0.374997
-amplitude numerique : 0.625535 
-energie             : 38.5745
-difference max      : 0.252494 
-erreur              : 3.84404 
-erreur relative     : 0.89538 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 0.89538 
-48.8% du calcul fini: 1029/2105 
-========= 0 =============== 1050 =============== 0.498812 ========================= 
-amplitude exacte    : 0.374999
-amplitude numerique : 0.625851 
-energie             : 36.7318
-difference max      : 0.252102 
-erreur              : 3.83796 
-erreur relative     : 0.896973 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 0.896973 
-49.8% du calcul fini: 1050/2105 
-========= 0 =============== 1071 =============== 0.508789 ========================= 
-amplitude exacte    : 0.375
-amplitude numerique : 0.625912 
-energie             : 33.8081
-difference max      : 0.25228 
-erreur              : 3.81628 
-erreur relative     : 0.901335 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 0.901335 
-50.8% du calcul fini: 1071/2105 
-========= 0 =============== 1092 =============== 0.518765 ========================= 
-amplitude exacte    : 0.375
-amplitude numerique : 0.625644 
-energie             : 29.8524
-difference max      : 0.251577 
-erreur              : 3.7683 
-erreur relative     : 0.911094 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 0.911094 
-51.8% du calcul fini: 1092/2105 
-========= 0 =============== 1113 =============== 0.528741 ========================= 
-amplitude exacte    : 0.375
-amplitude numerique : 0.626015 
-energie             : 26.3835
-difference max      : 0.251731 
-erreur              : 3.68241 
-erreur relative     : 0.930601 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 0.930601 
-52.8% du calcul fini: 1113/2105 
-========= 0 =============== 1134 =============== 0.538717 ========================= 
-amplitude exacte    : 0.375
-amplitude numerique : 0.626294 
-energie             : 24.2097
-difference max      : 0.251294 
-erreur              : 3.55143 
-erreur relative     : 0.965938 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 0.965938 
-53.8% du calcul fini: 1134/2105 
-========= 0 =============== 1155 =============== 0.548694 ========================= 
-amplitude exacte    : 0.374999
-amplitude numerique : 0.626296 
-energie             : 23.6484
-difference max      : 0.251375 
-erreur              : 3.38164 
-erreur relative     : 1.02599 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 1.02599 
-54.8% du calcul fini: 1155/2105 
-========= 0 =============== 1176 =============== 0.55867 ========================= 
-amplitude exacte    : 0.364773
-amplitude numerique : 0.609312 
-energie             : 23.3977
-difference max      : 0.250879 
-erreur              : 3.19486 
-erreur relative     : 1.12267 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 1.12267 
-55.8% du calcul fini: 1176/2105 
-========= 0 =============== 1197 =============== 0.568646 ========================= 
-amplitude exacte    : 0.32542
-amplitude numerique : 0.54208 
-energie             : 21.9648
-difference max      : 0.250725 
-erreur              : 3.02142 
-erreur relative     : 1.26791 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 1.26791 
-56.8% du calcul fini: 1197/2105 
-========= 0 =============== 1218 =============== 0.578622 ========================= 
-amplitude exacte    : 0.265739
-amplitude numerique : 0.444413 
-energie             : 18.9347
-difference max      : 0.250484 
-erreur              : 2.88691 
-erreur relative     : 1.46184 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 1.46184 
-57.8% du calcul fini: 1218/2105 
-========= 0 =============== 1239 =============== 0.588599 ========================= 
-amplitude exacte    : 0.198634
-amplitude numerique : 0.329391 
-energie             : 14.9503
-difference max      : 0.250171 
-erreur              : 2.80047 
-erreur relative     : 1.67309 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 1.67309 
-58.8% du calcul fini: 1239/2105 
-========= 0 =============== 1260 =============== 0.598575 ========================= 
-amplitude exacte    : 0.135907
-amplitude numerique : 0.226219 
-energie             : 11.6632
-difference max      : 0.250338 
-erreur              : 2.75492 
-erreur relative     : 1.84399 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 1.84399 
-59.8% du calcul fini: 1260/2105 
-========= 0 =============== 1281 =============== 0.608551 ========================= 
-amplitude exacte    : 0.124999
-amplitude numerique : 0.141066 
-energie             : 9.24928
-difference max      : 0.250254 
-erreur              : 2.7349 
-erreur relative     : 1.94174 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 1.94174 
-60.8% du calcul fini: 1281/2105 
-========= 0 =============== 1302 =============== 0.618527 ========================= 
-amplitude exacte    : 0.124999
-amplitude numerique : 0.125255 
-energie             : 8.12238
-difference max      : 0.250246 
-erreur              : 2.7277 
-erreur relative     : 1.98255 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 1.98255 
-61.8% du calcul fini: 1302/2105 
-========= 0 =============== 1323 =============== 0.628504 ========================= 
-amplitude exacte    : 0.125
-amplitude numerique : 0.125338 
-energie             : 7.55134
-difference max      : 0.250228 
-erreur              : 2.72549 
-erreur relative     : 1.99571 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 1.99571 
-62.8% du calcul fini: 1323/2105 
-========= 0 =============== 1344 =============== 0.63848 ========================= 
-amplitude exacte    : 0.125
-amplitude numerique : 0.125365 
-energie             : 7.37104
-difference max      : 0.250318 
-erreur              : 2.72495 
-erreur relative     : 1.99919 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 1.99919 
-63.8% du calcul fini: 1344/2105 
-========= 0 =============== 1365 =============== 0.648456 ========================= 
-amplitude exacte    : 0.125
-amplitude numerique : 0.125265 
-energie             : 7.31135
-difference max      : 0.250254 
-erreur              : 2.72483 
-erreur relative     : 1.99994 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 1.99994 
-64.8% du calcul fini: 1365/2105 
-========= 0 =============== 1386 =============== 0.658432 ========================= 
-amplitude exacte    : 0.125
-amplitude numerique : 0.125194 
-energie             : 7.29759
-difference max      : 0.250194 
-erreur              : 2.72481 
-erreur relative     : 2.00008 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 2.00008 
-65.8% du calcul fini: 1386/2105 
-========= 0 =============== 1407 =============== 0.668409 ========================= 
-amplitude exacte    : 0.125
-amplitude numerique : 0.125118 
-energie             : 7.29412
-difference max      : 0.250058 
-erreur              : 2.7248 
-erreur relative     : 2.00009 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 2.00009 
-66.8% du calcul fini: 1407/2105 
-========= 0 =============== 1428 =============== 0.678385 ========================= 
-amplitude exacte    : 0.125
-amplitude numerique : 0.125135 
-energie             : 7.29358
-difference max      : 0.250122 
-erreur              : 2.72479 
-erreur relative     : 2.00009 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 2.00009 
-67.8% du calcul fini: 1428/2105 
-========= 0 =============== 1449 =============== 0.688361 ========================= 
-amplitude exacte    : 0.125
-amplitude numerique : 0.125178 
-energie             : 7.29365
-difference max      : 0.250148 
-erreur              : 2.72478 
-erreur relative     : 2.00008 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 2.00009 
-68.8% du calcul fini: 1449/2105 
-========= 0 =============== 1470 =============== 0.698337 ========================= 
-amplitude exacte    : 0.125
-amplitude numerique : 0.125149 
-energie             : 7.29395
-difference max      : 0.250149 
-erreur              : 2.72478 
-erreur relative     : 2.00008 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 2.00009 
-69.8% du calcul fini: 1470/2105 
-========= 0 =============== 1491 =============== 0.708314 ========================= 
-amplitude exacte    : 0.125
-amplitude numerique : 0.125211 
-energie             : 7.2942
-difference max      : 0.250152 
-erreur              : 2.72478 
-erreur relative     : 2.00008 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 2.00009 
-70.8% du calcul fini: 1491/2105 
-========= 0 =============== 1512 =============== 0.71829 ========================= 
-amplitude exacte    : 0.125
-amplitude numerique : 0.125246 
-energie             : 7.29414
-difference max      : 0.250109 
-erreur              : 2.72478 
-erreur relative     : 2.00009 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 2.00009 
-71.8% du calcul fini: 1512/2105 
-========= 0 =============== 1533 =============== 0.728266 ========================= 
-amplitude exacte    : 0.125
-amplitude numerique : 0.125373 
-energie             : 7.29381
-difference max      : 0.250308 
-erreur              : 2.72479 
-erreur relative     : 2.00009 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 2.00009 
-72.8% du calcul fini: 1533/2105 
-========= 0 =============== 1554 =============== 0.738242 ========================= 
-amplitude exacte    : 0.124999
-amplitude numerique : 0.125581 
-energie             : 7.29283
-difference max      : 0.250513 
-erreur              : 2.7248 
-erreur relative     : 2.0001 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 2.0001 
-73.8% du calcul fini: 1554/2105 
-========= 0 =============== 1575 =============== 0.748219 ========================= 
-amplitude exacte    : 0.124999
-amplitude numerique : 0.125688 
-energie             : 7.29138
-difference max      : 0.250666 
-erreur              : 2.72481 
-erreur relative     : 2.0001 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 2.0001 
-74.8% du calcul fini: 1575/2105 
-========= 0 =============== 1596 =============== 0.758195 ========================= 
-amplitude exacte    : 0.124999
-amplitude numerique : 0.125592 
-energie             : 7.29109
-difference max      : 0.250591 
-erreur              : 2.72481 
-erreur relative     : 2.00011 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 2.00011 
-75.8% du calcul fini: 1596/2105 
-========= 0 =============== 1617 =============== 0.768171 ========================= 
-amplitude exacte    : 0.124999
-amplitude numerique : 0.125463 
-energie             : 7.29066
-difference max      : 0.250462 
-erreur              : 2.72481 
-erreur relative     : 2.0001 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 2.00011 
-76.8% du calcul fini: 1617/2105 
-========= 0 =============== 1638 =============== 0.778147 ========================= 
-amplitude exacte    : 0.124998
-amplitude numerique : 0.12535 
-energie             : 7.28944
-difference max      : 0.250344 
-erreur              : 2.72481 
-erreur relative     : 2.0001 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 2.00011 
-77.8% du calcul fini: 1638/2105 
-========= 0 =============== 1659 =============== 0.788124 ========================= 
-amplitude exacte    : 0.124998
-amplitude numerique : 0.125257 
-energie             : 7.28816
-difference max      : 0.250252 
-erreur              : 2.7248 
-erreur relative     : 2.0001 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 2.00011 
-78.8% du calcul fini: 1659/2105 
-========= 0 =============== 1680 =============== 0.7981 ========================= 
-amplitude exacte    : 0.124998
-amplitude numerique : 0.125323 
-energie             : 7.28777
-difference max      : 0.250318 
-erreur              : 2.7248 
-erreur relative     : 2.0001 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 2.00011 
-79.8% du calcul fini: 1680/2105 
-========= 0 =============== 1701 =============== 0.808076 ========================= 
-amplitude exacte    : 0.124997
-amplitude numerique : 0.125289 
-energie             : 7.28762
-difference max      : 0.250255 
-erreur              : 2.7248 
-erreur relative     : 2.0001 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 2.00011 
-80.8% du calcul fini: 1701/2105 
-========= 0 =============== 1722 =============== 0.818052 ========================= 
-amplitude exacte    : 0.124997
-amplitude numerique : 0.125226 
-energie             : 7.28758
-difference max      : 0.250194 
-erreur              : 2.7248 
-erreur relative     : 2.0001 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 2.00011 
-81.8% du calcul fini: 1722/2105 
-========= 0 =============== 1743 =============== 0.828029 ========================= 
-amplitude exacte    : 0.124997
-amplitude numerique : 0.125107 
-energie             : 7.28754
-difference max      : 0.250037 
-erreur              : 2.7248 
-erreur relative     : 2.0001 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 2.00011 
-82.8% du calcul fini: 1743/2105 
-========= 0 =============== 1764 =============== 0.838005 ========================= 
-amplitude exacte    : 0.124997
-amplitude numerique : 0.125076 
-energie             : 7.28751
-difference max      : 0.250047 
-erreur              : 2.7248 
-erreur relative     : 2.0001 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 2.00011 
-83.8% du calcul fini: 1764/2105 
-========= 0 =============== 1785 =============== 0.847981 ========================= 
-amplitude exacte    : 0.124998
-amplitude numerique : 0.125075 
-energie             : 7.2875
-difference max      : 0.250047 
-erreur              : 2.7248 
-erreur relative     : 2.0001 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 2.00011 
-84.7% du calcul fini: 1785/2105 
-========= 0 =============== 1806 =============== 0.857957 ========================= 
-amplitude exacte    : 0.124998
-amplitude numerique : 0.125056 
-energie             : 7.28749
-difference max      : 0.249993 
-erreur              : 2.7248 
-erreur relative     : 2.0001 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 2.00011 
-85.7% du calcul fini: 1806/2105 
-========= 0 =============== 1827 =============== 0.867933 ========================= 
-amplitude exacte    : 0.124998
-amplitude numerique : 0.125031 
-energie             : 7.28748
-difference max      : 0.249988 
-erreur              : 2.7248 
-erreur relative     : 2.0001 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 2.00011 
-86.7% du calcul fini: 1827/2105 
-========= 0 =============== 1848 =============== 0.87791 ========================= 
-amplitude exacte    : 0.124999
-amplitude numerique : 0.12509 
-energie             : 7.28746
-difference max      : 0.24998 
-erreur              : 2.7248 
-erreur relative     : 2.0001 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 2.00011 
-87.7% du calcul fini: 1848/2105 
-========= 0 =============== 1869 =============== 0.887886 ========================= 
-amplitude exacte    : 0.124999
-amplitude numerique : 0.125188 
-energie             : 7.2874
-difference max      : 0.249943 
-erreur              : 2.72479 
-erreur relative     : 2.0001 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 2.00011 
-88.7% du calcul fini: 1869/2105 
-========= 0 =============== 1890 =============== 0.897862 ========================= 
-amplitude exacte    : 0.124999
-amplitude numerique : 0.125293 
-energie             : 7.28727
-difference max      : 0.250097 
-erreur              : 2.72479 
-erreur relative     : 2.0001 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 2.00011 
-89.7% du calcul fini: 1890/2105 
-========= 0 =============== 1911 =============== 0.907838 ========================= 
-amplitude exacte    : 0.124999
-amplitude numerique : 0.125291 
-energie             : 7.28702
-difference max      : 0.250121 
-erreur              : 2.72477 
-erreur relative     : 2.0001 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 2.00011 
-90.7% du calcul fini: 1911/2105 
-========= 0 =============== 1932 =============== 0.917815 ========================= 
-amplitude exacte    : 0.125
-amplitude numerique : 0.125351 
-energie             : 7.28646
-difference max      : 0.25024 
-erreur              : 2.72472 
-erreur relative     : 2.0001 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 2.00011 
-91.7% du calcul fini: 1932/2105 
-========= 0 =============== 1953 =============== 0.927791 ========================= 
-amplitude exacte    : 0.125
-amplitude numerique : 0.125317 
-energie             : 7.28521
-difference max      : 0.250203 
-erreur              : 2.72462 
-erreur relative     : 2.00009 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 2.00011 
-92.7% du calcul fini: 1953/2105 
-========= 0 =============== 1974 =============== 0.937767 ========================= 
-amplitude exacte    : 0.125
-amplitude numerique : 0.125346 
-energie             : 7.28307
-difference max      : 0.250296 
-erreur              : 2.72441 
-erreur relative     : 2.00009 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 2.00011 
-93.7% du calcul fini: 1974/2105 
-========= 0 =============== 1995 =============== 0.947743 ========================= 
-amplitude exacte    : 0.125
-amplitude numerique : 0.125301 
-energie             : 7.27948
-difference max      : 0.250249 
-erreur              : 2.72396 
-erreur relative     : 2.00008 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 2.00011 
-94.7% du calcul fini: 1995/2105 
-========= 0 =============== 2016 =============== 0.95772 ========================= 
-amplitude exacte    : 0.125
-amplitude numerique : 0.125299 
-energie             : 7.27235
-difference max      : 0.250286 
-erreur              : 2.72309 
-erreur relative     : 2.00007 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 2.00011 
-95.7% du calcul fini: 2016/2105 
-========= 0 =============== 2037 =============== 0.967696 ========================= 
-amplitude exacte    : 0.125
-amplitude numerique : 0.125226 
-energie             : 7.26121
-difference max      : 0.250212 
-erreur              : 2.72145 
-erreur relative     : 2.00006 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 2.00011 
-96.7% du calcul fini: 2037/2105 
-========= 0 =============== 2058 =============== 0.977672 ========================= 
-amplitude exacte    : 0.125
-amplitude numerique : 0.125204 
-energie             : 7.24494
-difference max      : 0.250204 
-erreur              : 2.71848 
-erreur relative     : 2.00003 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 2.00011 
-97.7% du calcul fini: 2058/2105 
-========= 0 =============== 2079 =============== 0.987648 ========================= 
-amplitude exacte    : 0.125
-amplitude numerique : 0.12513 
-energie             : 7.22025
-difference max      : 0.25013 
-erreur              : 2.71335 
-erreur relative     : 1.99998 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 2.00011 
-98.7% du calcul fini: 2079/2105 
-========= 0 =============== 2100 =============== 0.997625 ========================= 
-amplitude exacte    : 0.125
-amplitude numerique : 0.125099 
-energie             : 7.18216
-difference max      : 0.250088 
-erreur              : 2.70492 
-erreur relative     : 1.99995 
-le max de l'erreur  : 3.84404 
-max erreur relat    : 2.00011 
-99.7% du calcul fini: 2100/2105 
+========= 0 =============== 25 =============== 0.01 ========================= 
+amplitude numerique : 0.91469 
+energie             : 99.0807
+1% du calcul fini: 25/2500 
+========= 0 =============== 50 =============== 0.02 ========================= 
+amplitude numerique : 0.684972 
+energie             : 99.0807
+2% du calcul fini: 50/2500 
+========= 0 =============== 75 =============== 0.03 ========================= 
+amplitude numerique : 0.516713 
+energie             : 124.047
+3% du calcul fini: 75/2500 
+========= 0 =============== 100 =============== 0.04 ========================= 
+amplitude numerique : 0.499905 
+energie             : 541579
+4% du calcul fini: 100/2500 
+========= 0 =============== 125 =============== 0.05 ========================= 
+amplitude numerique : 0.577141 
+energie             : 1.73399e+07
+5% du calcul fini: 125/2500 
+========= 0 =============== 150 =============== 0.06 ========================= 
+amplitude numerique : 0.498876 
+energie             : 3.13728e+07
+6% du calcul fini: 150/2500 
+========= 0 =============== 175 =============== 0.07 ========================= 
+amplitude numerique : 0.498878 
+energie             : 4.77017e+07
+7% du calcul fini: 175/2500 
+========= 0 =============== 200 =============== 0.08 ========================= 
+amplitude numerique : 0.49888 
+energie             : 5.10533e+07
+8% du calcul fini: 200/2500 
+========= 0 =============== 225 =============== 0.09 ========================= 
+amplitude numerique : 0.498881 
+energie             : 5.40657e+07
+9% du calcul fini: 225/2500 
+========= 0 =============== 250 =============== 0.1 ========================= 
+amplitude numerique : 0.503158 
+energie             : 5.42964e+07
+10% du calcul fini: 250/2500 
+========= 0 =============== 275 =============== 0.11 ========================= 
+amplitude numerique : 0.49192 
+energie             : 6.41648e+07
+11% du calcul fini: 275/2500 
+========= 0 =============== 300 =============== 0.12 ========================= 
+amplitude numerique : 0.471502 
+energie             : 8.28653e+07
+12% du calcul fini: 300/2500 
+========= 0 =============== 325 =============== 0.13 ========================= 
+amplitude numerique : 0.44012 
+energie             : 8.56814e+07
+13% du calcul fini: 325/2500 
+========= 0 =============== 350 =============== 0.14 ========================= 
+amplitude numerique : 0.40081 
+energie             : 8.57153e+07
+14% du calcul fini: 350/2500 
+========= 0 =============== 375 =============== 0.15 ========================= 
+amplitude numerique : 0.385568 
+energie             : 8.57152e+07
+15% du calcul fini: 375/2500 
+========= 0 =============== 400 =============== 0.16 ========================= 
+amplitude numerique : 0.418647 
+energie             : 8.57152e+07
+16% du calcul fini: 400/2500 
+========= 0 =============== 425 =============== 0.17 ========================= 
+amplitude numerique : 0.463698 
+energie             : 8.57152e+07
+17% du calcul fini: 425/2500 
+========= 0 =============== 450 =============== 0.18 ========================= 
+amplitude numerique : 0.507756 
+energie             : 8.57152e+07
+18% du calcul fini: 450/2500 
+========= 0 =============== 475 =============== 0.19 ========================= 
+amplitude numerique : 0.519569 
+energie             : 8.57152e+07
+19% du calcul fini: 475/2500 
+========= 0 =============== 500 =============== 0.2 ========================= 
+amplitude numerique : 0.524886 
+energie             : 8.57152e+07
+20% du calcul fini: 500/2500 
+========= 0 =============== 525 =============== 0.21 ========================= 
+amplitude numerique : 0.492434 
+energie             : 8.57152e+07
+21% du calcul fini: 525/2500 
+========= 0 =============== 550 =============== 0.22 ========================= 
+amplitude numerique : 0.465929 
+energie             : 8.57152e+07
+22% du calcul fini: 550/2500 
+========= 0 =============== 575 =============== 0.23 ========================= 
+amplitude numerique : 0.430101 
+energie             : 8.57152e+07
+23% du calcul fini: 575/2500 
+========= 0 =============== 600 =============== 0.24 ========================= 
+amplitude numerique : 0.381781 
+energie             : 8.57152e+07
+24% du calcul fini: 600/2500 
+========= 0 =============== 625 =============== 0.25 ========================= 
+amplitude numerique : 0.359059 
+energie             : 8.57152e+07
+25% du calcul fini: 625/2500 
+========= 0 =============== 650 =============== 0.26 ========================= 
+amplitude numerique : 0.314891 
+energie             : 8.57152e+07
+26% du calcul fini: 650/2500 
+========= 0 =============== 675 =============== 0.27 ========================= 
+amplitude numerique : 0.288308 
+energie             : 8.57152e+07
+27% du calcul fini: 675/2500 
+========= 0 =============== 700 =============== 0.28 ========================= 
+amplitude numerique : 0.285522 
+energie             : 8.57152e+07
+28% du calcul fini: 700/2500 
+========= 0 =============== 725 =============== 0.29 ========================= 
+amplitude numerique : 0.269719 
+energie             : 8.57151e+07
+29% du calcul fini: 725/2500 
+========= 0 =============== 750 =============== 0.3 ========================= 
+amplitude numerique : 0.276558 
+energie             : 8.57147e+07
+30% du calcul fini: 750/2500 
+========= 0 =============== 775 =============== 0.31 ========================= 
+amplitude numerique : 0.266773 
+energie             : 8.57136e+07
+31% du calcul fini: 775/2500 
+========= 0 =============== 800 =============== 0.32 ========================= 
+amplitude numerique : 0.276224 
+energie             : 8.57094e+07
+32% du calcul fini: 800/2500 
+========= 0 =============== 825 =============== 0.33 ========================= 
+amplitude numerique : 0.268864 
+energie             : 8.57012e+07
+33% du calcul fini: 825/2500 
+========= 0 =============== 850 =============== 0.34 ========================= 
+amplitude numerique : 0.271978 
+energie             : 8.5672e+07
+34% du calcul fini: 850/2500 
+========= 0 =============== 875 =============== 0.35 ========================= 
+amplitude numerique : 0.27066 
+energie             : 8.56194e+07
+35% du calcul fini: 875/2500 
+========= 0 =============== 900 =============== 0.36 ========================= 
+amplitude numerique : 0.28298 
+energie             : 8.55e+07
+36% du calcul fini: 900/2500 
+========= 0 =============== 925 =============== 0.37 ========================= 
+amplitude numerique : 0.276273 
+energie             : 8.52955e+07
+37% du calcul fini: 925/2500 
+========= 0 =============== 950 =============== 0.38 ========================= 
+amplitude numerique : 0.274679 
+energie             : 8.49715e+07
+38% du calcul fini: 950/2500 
+========= 0 =============== 975 =============== 0.39 ========================= 
+amplitude numerique : 0.272626 
+energie             : 8.43072e+07
+39% du calcul fini: 975/2500 
+========= 0 =============== 1000 =============== 0.4 ========================= 
+amplitude numerique : 0.277249 
+energie             : 8.35095e+07
+40% du calcul fini: 1000/2500 
+========= 0 =============== 1025 =============== 0.41 ========================= 
+amplitude numerique : 0.276852 
+energie             : 8.22597e+07
+41% du calcul fini: 1025/2500 
+========= 0 =============== 1050 =============== 0.42 ========================= 
+amplitude numerique : 0.268655 
+energie             : 8.09429e+07
+42% du calcul fini: 1050/2500 
+========= 0 =============== 1075 =============== 0.43 ========================= 
+amplitude numerique : 0.269999 
+energie             : 7.94353e+07
+43% du calcul fini: 1075/2500 
+========= 0 =============== 1100 =============== 0.44 ========================= 
+amplitude numerique : 0.265253 
+energie             : 7.7834e+07
+44% du calcul fini: 1100/2500 
+========= 0 =============== 1125 =============== 0.45 ========================= 
+amplitude numerique : 0.264332 
+energie             : 7.65088e+07
+45% du calcul fini: 1125/2500 
+========= 0 =============== 1150 =============== 0.46 ========================= 
+amplitude numerique : 0.258721 
+energie             : 7.53644e+07
+46% du calcul fini: 1150/2500 
+========= 0 =============== 1175 =============== 0.47 ========================= 
+amplitude numerique : 0.258262 
+energie             : 7.46628e+07
+47% du calcul fini: 1175/2500 
+========= 0 =============== 1200 =============== 0.48 ========================= 
+amplitude numerique : 0.256511 
+energie             : 7.42461e+07
+48% du calcul fini: 1200/2500 
+========= 0 =============== 1225 =============== 0.49 ========================= 
+amplitude numerique : 0.259709 
+energie             : 7.40103e+07
+49% du calcul fini: 1225/2500 
+========= 0 =============== 1250 =============== 0.5 ========================= 
+amplitude numerique : 0.262898 
+energie             : 7.38444e+07
+50% du calcul fini: 1250/2500 
+========= 0 =============== 1275 =============== 0.51 ========================= 
+amplitude numerique : 0.263078 
+energie             : 7.37028e+07
+51% du calcul fini: 1275/2500 
+========= 0 =============== 1300 =============== 0.52 ========================= 
+amplitude numerique : 0.258835 
+energie             : 7.35561e+07
+52% du calcul fini: 1300/2500 
+========= 0 =============== 1325 =============== 0.53 ========================= 
+amplitude numerique : 0.260898 
+energie             : 7.33613e+07
+53% du calcul fini: 1325/2500 
+========= 0 =============== 1350 =============== 0.54 ========================= 
+amplitude numerique : 0.271007 
+energie             : 7.3119e+07
+54% du calcul fini: 1350/2500 
+========= 0 =============== 1375 =============== 0.55 ========================= 
+amplitude numerique : 0.269881 
+energie             : 7.27865e+07
+55% du calcul fini: 1375/2500 
+========= 0 =============== 1400 =============== 0.56 ========================= 
+amplitude numerique : 0.264159 
+energie             : 7.22245e+07
+56% du calcul fini: 1400/2500 
+========= 0 =============== 1425 =============== 0.57 ========================= 
+amplitude numerique : 0.258822 
+energie             : 7.15233e+07
+56.99% du calcul fini: 1425/2500 
+========= 0 =============== 1450 =============== 0.58 ========================= 
+amplitude numerique : 0.260115 
+energie             : 7.0809e+07
+58% du calcul fini: 1450/2500 
+========= 0 =============== 1475 =============== 0.59 ========================= 
+amplitude numerique : 0.260199 
+energie             : 7.00308e+07
+59% du calcul fini: 1475/2500 
+========= 0 =============== 1500 =============== 0.6 ========================= 
+amplitude numerique : 0.263251 
+energie             : 6.88345e+07
+60% du calcul fini: 1500/2500 
+========= 0 =============== 1525 =============== 0.61 ========================= 
+amplitude numerique : 0.256162 
+energie             : 6.73355e+07
+61% du calcul fini: 1525/2500 
+========= 0 =============== 1550 =============== 0.62 ========================= 
+amplitude numerique : 0.280746 
+energie             : 6.62856e+07
+62% du calcul fini: 1550/2500 
+========= 0 =============== 1575 =============== 0.63 ========================= 
+amplitude numerique : 0.255505 
+energie             : 6.55196e+07
+63% du calcul fini: 1575/2500 
+========= 0 =============== 1600 =============== 0.64 ========================= 
+amplitude numerique : 0.253154 
+energie             : 6.45676e+07
+64% du calcul fini: 1600/2500 
+========= 0 =============== 1625 =============== 0.65 ========================= 
+amplitude numerique : 0.252615 
+energie             : 6.37383e+07
+65% du calcul fini: 1625/2500 
+========= 0 =============== 1650 =============== 0.66 ========================= 
+amplitude numerique : 0.252566 
+energie             : 6.19329e+07
+66% du calcul fini: 1650/2500 
+========= 0 =============== 1675 =============== 0.67 ========================= 
+amplitude numerique : 0.252828 
+energie             : 6.10329e+07
+67% du calcul fini: 1675/2500 
+========= 0 =============== 1700 =============== 0.68 ========================= 
+amplitude numerique : 0.252689 
+energie             : 6.00968e+07
+68% du calcul fini: 1700/2500 
+========= 0 =============== 1725 =============== 0.69 ========================= 
+amplitude numerique : 0.252749 
+energie             : 5.7018e+07
+68.99% du calcul fini: 1725/2500 
+========= 0 =============== 1750 =============== 0.7 ========================= 
+amplitude numerique : 0.254014 
+energie             : 5.44549e+07
+70% du calcul fini: 1750/2500 
+========= 0 =============== 1775 =============== 0.71 ========================= 
+amplitude numerique : 0.252071 
+energie             : 5.33589e+07
+71% du calcul fini: 1775/2500 
+========= 0 =============== 1800 =============== 0.72 ========================= 
+amplitude numerique : 0.251625 
+energie             : 5.24709e+07
+72% du calcul fini: 1800/2500 
+========= 0 =============== 1825 =============== 0.73 ========================= 
+amplitude numerique : 0.252183 
+energie             : 5.12525e+07
+73% du calcul fini: 1825/2500 
+========= 0 =============== 1850 =============== 0.74 ========================= 
+amplitude numerique : 0.252371 
+energie             : 5.05436e+07
+74% du calcul fini: 1850/2500 
+========= 0 =============== 1875 =============== 0.75 ========================= 
+amplitude numerique : 0.25204 
+energie             : 5.02582e+07
+75% du calcul fini: 1875/2500 
+========= 0 =============== 1900 =============== 0.76 ========================= 
+amplitude numerique : 0.251612 
+energie             : 4.97607e+07
+76% du calcul fini: 1900/2500 
+========= 0 =============== 1925 =============== 0.77 ========================= 
+amplitude numerique : 0.251039 
+energie             : 4.80158e+07
+77% du calcul fini: 1925/2500 
+========= 0 =============== 1950 =============== 0.78 ========================= 
+amplitude numerique : 0.250742 
+energie             : 4.62001e+07
+78% du calcul fini: 1950/2500 
+========= 0 =============== 1975 =============== 0.79 ========================= 
+amplitude numerique : 0.250011 
+energie             : 4.50064e+07
+79% du calcul fini: 1975/2500 
+========= 0 =============== 2000 =============== 0.8 ========================= 
+amplitude numerique : 0.24973 
+energie             : 4.43307e+07
+80% du calcul fini: 2000/2500 
+========= 0 =============== 2025 =============== 0.81 ========================= 
+amplitude numerique : 0.249633 
+energie             : 4.41647e+07
+81% du calcul fini: 2025/2500 
+========= 0 =============== 2050 =============== 0.82 ========================= 
+amplitude numerique : 0.25016 
+energie             : 4.40027e+07
+82% du calcul fini: 2050/2500 
+========= 0 =============== 2075 =============== 0.83 ========================= 
+amplitude numerique : 0.250699 
+energie             : 4.37516e+07
+83% du calcul fini: 2075/2500 
+========= 0 =============== 2100 =============== 0.84 ========================= 
+amplitude numerique : 0.250775 
+energie             : 4.3443e+07
+84% du calcul fini: 2100/2500 
+========= 0 =============== 2125 =============== 0.85 ========================= 
+amplitude numerique : 0.250556 
+energie             : 4.30996e+07
+85% du calcul fini: 2125/2500 
+========= 0 =============== 2150 =============== 0.86 ========================= 
+amplitude numerique : 0.251389 
+energie             : 4.28046e+07
+86% du calcul fini: 2150/2500 
+========= 0 =============== 2175 =============== 0.87 ========================= 
+amplitude numerique : 0.25168 
+energie             : 4.26392e+07
+87% du calcul fini: 2175/2500 
+========= 0 =============== 2200 =============== 0.88 ========================= 
+amplitude numerique : 0.251123 
+energie             : 4.25947e+07
+88% du calcul fini: 2200/2500 
+========= 0 =============== 2225 =============== 0.89 ========================= 
+amplitude numerique : 0.251587 
+energie             : 4.25601e+07
+89% du calcul fini: 2225/2500 
+========= 0 =============== 2250 =============== 0.9 ========================= 
+amplitude numerique : 0.251879 
+energie             : 4.2406e+07
+90% du calcul fini: 2250/2500 
+========= 0 =============== 2275 =============== 0.91 ========================= 
+amplitude numerique : 0.252189 
+energie             : 4.20933e+07
+91% du calcul fini: 2275/2500 
+========= 0 =============== 2300 =============== 0.92 ========================= 
+amplitude numerique : 0.251628 
+energie             : 4.16698e+07
+92% du calcul fini: 2300/2500 
+========= 0 =============== 2325 =============== 0.93 ========================= 
+amplitude numerique : 0.252204 
+energie             : 4.12024e+07
+93% du calcul fini: 2325/2500 
+========= 0 =============== 2350 =============== 0.94 ========================= 
+amplitude numerique : 0.252855 
+energie             : 4.08304e+07
+94% du calcul fini: 2350/2500 
+========= 0 =============== 2375 =============== 0.95 ========================= 
+amplitude numerique : 0.252812 
+energie             : 4.05899e+07
+95% du calcul fini: 2375/2500 
+========= 0 =============== 2400 =============== 0.96 ========================= 
+amplitude numerique : 0.252243 
+energie             : 4.04459e+07
+96% du calcul fini: 2400/2500 
+========= 0 =============== 2425 =============== 0.97 ========================= 
+amplitude numerique : 0.252833 
+energie             : 4.03773e+07
+97% du calcul fini: 2425/2500 
+========= 0 =============== 2450 =============== 0.98 ========================= 
+amplitude numerique : 0.252012 
+energie             : 4.03405e+07
+98% du calcul fini: 2450/2500 
+========= 0 =============== 2475 =============== 0.99 ========================= 
+amplitude numerique : 0.25188 
+energie             : 4.03053e+07
+99% du calcul fini: 2475/2500 
 le counter est à : 0
 il y a eu : 0 erreurs 
-l'erreur maximal est : 3.84404 
+l'erreur maximal est : 0 
 ========================= save to file ========================
------- post traitement-------21/2105 
------- post traitement-------42/2105 
------- post traitement-------63/2105 
------- post traitement-------84/2105 
------- post traitement-------105/2105 
------- post traitement-------126/2105 
------- post traitement-------147/2105 
------- post traitement-------168/2105 
------- post traitement-------189/2105 
------- post traitement-------210/2105 
------- post traitement-------231/2105 
------- post traitement-------252/2105 
------- post traitement-------273/2105 
------- post traitement-------294/2105 
------- post traitement-------315/2105 
------- post traitement-------336/2105 
------- post traitement-------357/2105 
------- post traitement-------378/2105 
------- post traitement-------399/2105 
------- post traitement-------420/2105 
------- post traitement-------441/2105 
------- post traitement-------462/2105 
------- post traitement-------483/2105 
------- post traitement-------504/2105 
------- post traitement-------525/2105 
------- post traitement-------546/2105 
------- post traitement-------567/2105 
------- post traitement-------588/2105 
------- post traitement-------609/2105 
------- post traitement-------630/2105 
------- post traitement-------651/2105 
------- post traitement-------672/2105 
------- post traitement-------693/2105 
------- post traitement-------714/2105 
------- post traitement-------735/2105 
------- post traitement-------756/2105 
------- post traitement-------777/2105 
------- post traitement-------798/2105 
------- post traitement-------819/2105 
------- post traitement-------840/2105 
------- post traitement-------861/2105 
------- post traitement-------882/2105 
------- post traitement-------903/2105 
------- post traitement-------924/2105 
------- post traitement-------945/2105 
------- post traitement-------966/2105 
------- post traitement-------987/2105 
------- post traitement-------1008/2105 
------- post traitement-------1029/2105 
------- post traitement-------1050/2105 
------- post traitement-------1071/2105 
------- post traitement-------1092/2105 
------- post traitement-------1113/2105 
------- post traitement-------1134/2105 
------- post traitement-------1155/2105 
------- post traitement-------1176/2105 
------- post traitement-------1197/2105 
------- post traitement-------1218/2105 
------- post traitement-------1239/2105 
------- post traitement-------1260/2105 
------- post traitement-------1281/2105 
------- post traitement-------1302/2105 
------- post traitement-------1323/2105 
------- post traitement-------1344/2105 
------- post traitement-------1365/2105 
------- post traitement-------1386/2105 
------- post traitement-------1407/2105 
------- post traitement-------1428/2105 
------- post traitement-------1449/2105 
------- post traitement-------1470/2105 
------- post traitement-------1491/2105 
------- post traitement-------1512/2105 
------- post traitement-------1533/2105 
------- post traitement-------1554/2105 
------- post traitement-------1575/2105 
------- post traitement-------1596/2105 
------- post traitement-------1617/2105 
------- post traitement-------1638/2105 
------- post traitement-------1659/2105 
------- post traitement-------1680/2105 
------- post traitement-------1701/2105 
------- post traitement-------1722/2105 
------- post traitement-------1743/2105 
------- post traitement-------1764/2105 
------- post traitement-------1785/2105 
------- post traitement-------1806/2105 
------- post traitement-------1827/2105 
------- post traitement-------1848/2105 
------- post traitement-------1869/2105 
------- post traitement-------1890/2105 
------- post traitement-------1911/2105 
------- post traitement-------1932/2105 
------- post traitement-------1953/2105 
------- post traitement-------1974/2105 
------- post traitement-------1995/2105 
------- post traitement-------2016/2105 
------- post traitement-------2037/2105 
------- post traitement-------2058/2105 
------- post traitement-------2079/2105 
------- post traitement-------2100/2105 
+t =0.0094 trho =0.0096 n=25 indice =1
+------ post traitement-------25/2500 
+t =0.0194 trho =0.0196 n=50 indice =2
+------ post traitement-------50/2500 
+t =0.0294 trho =0.0296 n=75 indice =3
+------ post traitement-------75/2500 
+t =0.0394 trho =0.0396 n=100 indice =4
+------ post traitement-------100/2500 
+t =0.0494 trho =0.0496 n=125 indice =5
+------ post traitement-------125/2500 
+t =0.0594 trho =0.0596 n=150 indice =6
+------ post traitement-------150/2500 
+t =0.0694 trho =0.0696 n=175 indice =7
+------ post traitement-------175/2500 
+t =0.0794 trho =0.0796 n=200 indice =8
+------ post traitement-------200/2500 
+t =0.0894 trho =0.0896 n=225 indice =9
+------ post traitement-------225/2500 
+t =0.0994 trho =0.0996 n=250 indice =10
+------ post traitement-------250/2500 
+t =0.1094 trho =0.1096 n=275 indice =11
+------ post traitement-------275/2500 
+t =0.1194 trho =0.1196 n=300 indice =12
+------ post traitement-------300/2500 
+t =0.1294 trho =0.1296 n=325 indice =13
+------ post traitement-------325/2500 
+t =0.1394 trho =0.1396 n=350 indice =14
+------ post traitement-------350/2500 
+t =0.1494 trho =0.1496 n=375 indice =15
+------ post traitement-------375/2500 
+t =0.1594 trho =0.1596 n=400 indice =16
+------ post traitement-------400/2500 
+t =0.1694 trho =0.1696 n=425 indice =17
+------ post traitement-------425/2500 
+t =0.1794 trho =0.1796 n=450 indice =18
+------ post traitement-------450/2500 
+t =0.1894 trho =0.1896 n=475 indice =19
+------ post traitement-------475/2500 
+t =0.1994 trho =0.1996 n=500 indice =20
+------ post traitement-------500/2500 
+t =0.2094 trho =0.2096 n=525 indice =21
+------ post traitement-------525/2500 
+t =0.2194 trho =0.2196 n=550 indice =22
+------ post traitement-------550/2500 
+t =0.2294 trho =0.2296 n=575 indice =23
+------ post traitement-------575/2500 
+t =0.2394 trho =0.2396 n=600 indice =24
+------ post traitement-------600/2500 
+t =0.2494 trho =0.2496 n=625 indice =25
+------ post traitement-------625/2500 
+t =0.2594 trho =0.2596 n=650 indice =26
+------ post traitement-------650/2500 
+t =0.2694 trho =0.2696 n=675 indice =27
+------ post traitement-------675/2500 
+t =0.2794 trho =0.2796 n=700 indice =28
+------ post traitement-------700/2500 
+t =0.2894 trho =0.2896 n=725 indice =29
+------ post traitement-------725/2500 
+t =0.2994 trho =0.2996 n=750 indice =30
+------ post traitement-------750/2500 
+t =0.3094 trho =0.3096 n=775 indice =31
+------ post traitement-------775/2500 
+t =0.3194 trho =0.3196 n=800 indice =32
+------ post traitement-------800/2500 
+t =0.3294 trho =0.3296 n=825 indice =33
+------ post traitement-------825/2500 
+t =0.3394 trho =0.3396 n=850 indice =34
+------ post traitement-------850/2500 
+t =0.3494 trho =0.3496 n=875 indice =35
+------ post traitement-------875/2500 
+t =0.3594 trho =0.3596 n=900 indice =36
+------ post traitement-------900/2500 
+t =0.3694 trho =0.3696 n=925 indice =37
+------ post traitement-------925/2500 
+t =0.3794 trho =0.3796 n=950 indice =38
+------ post traitement-------950/2500 
+t =0.3894 trho =0.3896 n=975 indice =39
+------ post traitement-------975/2500 
+t =0.3994 trho =0.3996 n=1000 indice =40
+------ post traitement-------1000/2500 
+t =0.4094 trho =0.4096 n=1025 indice =41
+------ post traitement-------1025/2500 
+t =0.4194 trho =0.4196 n=1050 indice =42
+------ post traitement-------1050/2500 
+t =0.4294 trho =0.4296 n=1075 indice =43
+------ post traitement-------1075/2500 
+t =0.4394 trho =0.4396 n=1100 indice =44
+------ post traitement-------1100/2500 
+t =0.4494 trho =0.4496 n=1125 indice =45
+------ post traitement-------1125/2500 
+t =0.4594 trho =0.4596 n=1150 indice =46
+------ post traitement-------1150/2500 
+t =0.4694 trho =0.4696 n=1175 indice =47
+------ post traitement-------1175/2500 
+t =0.4794 trho =0.4796 n=1200 indice =48
+------ post traitement-------1200/2500 
+t =0.4894 trho =0.4896 n=1225 indice =49
+------ post traitement-------1225/2500 
+t =0.4994 trho =0.4996 n=1250 indice =50
+------ post traitement-------1250/2500 
+t =0.5094 trho =0.5096 n=1275 indice =51
+------ post traitement-------1275/2500 
+t =0.5194 trho =0.5196 n=1300 indice =52
+------ post traitement-------1300/2500 
+t =0.5294 trho =0.5296 n=1325 indice =53
+------ post traitement-------1325/2500 
+t =0.5394 trho =0.5396 n=1350 indice =54
+------ post traitement-------1350/2500 
+t =0.5494 trho =0.5496 n=1375 indice =55
+------ post traitement-------1375/2500 
+t =0.5594 trho =0.5596 n=1400 indice =56
+------ post traitement-------1400/2500 
+t =0.5694 trho =0.5696 n=1425 indice =57
+------ post traitement-------1425/2500 
+t =0.5794 trho =0.5796 n=1450 indice =58
+------ post traitement-------1450/2500 
+t =0.5894 trho =0.5896 n=1475 indice =59
+------ post traitement-------1475/2500 
+t =0.5994 trho =0.5996 n=1500 indice =60
+------ post traitement-------1500/2500 
+t =0.6094 trho =0.6096 n=1525 indice =61
+------ post traitement-------1525/2500 
+t =0.6194 trho =0.6196 n=1550 indice =62
+------ post traitement-------1550/2500 
+t =0.6294 trho =0.6296 n=1575 indice =63
+------ post traitement-------1575/2500 
+t =0.6394 trho =0.6396 n=1600 indice =64
+------ post traitement-------1600/2500 
+t =0.6494 trho =0.6496 n=1625 indice =65
+------ post traitement-------1625/2500 
+t =0.6594 trho =0.6596 n=1650 indice =66
+------ post traitement-------1650/2500 
+t =0.6694 trho =0.6696 n=1675 indice =67
+------ post traitement-------1675/2500 
+t =0.6794 trho =0.6796 n=1700 indice =68
+------ post traitement-------1700/2500 
+t =0.6894 trho =0.6896 n=1725 indice =69
+------ post traitement-------1725/2500 
+t =0.6994 trho =0.6996 n=1750 indice =70
+------ post traitement-------1750/2500 
+t =0.7094 trho =0.7096 n=1775 indice =71
+------ post traitement-------1775/2500 
+t =0.7194 trho =0.7196 n=1800 indice =72
+------ post traitement-------1800/2500 
+t =0.7294 trho =0.7296 n=1825 indice =73
+------ post traitement-------1825/2500 
+t =0.7394 trho =0.7396 n=1850 indice =74
+------ post traitement-------1850/2500 
+t =0.7494 trho =0.7496 n=1875 indice =75
+------ post traitement-------1875/2500 
+t =0.7594 trho =0.7596 n=1900 indice =76
+------ post traitement-------1900/2500 
+t =0.7694 trho =0.7696 n=1925 indice =77
+------ post traitement-------1925/2500 
+t =0.7794 trho =0.7796 n=1950 indice =78
+------ post traitement-------1950/2500 
+t =0.7894 trho =0.7896 n=1975 indice =79
+------ post traitement-------1975/2500 
+t =0.7994 trho =0.7996 n=2000 indice =80
+------ post traitement-------2000/2500 
+t =0.8094 trho =0.8096 n=2025 indice =81
+------ post traitement-------2025/2500 
+t =0.8194 trho =0.8196 n=2050 indice =82
+------ post traitement-------2050/2500 
+t =0.8294 trho =0.8296 n=2075 indice =83
+------ post traitement-------2075/2500 
+t =0.8394 trho =0.8396 n=2100 indice =84
+------ post traitement-------2100/2500 
+t =0.8494 trho =0.8496 n=2125 indice =85
+------ post traitement-------2125/2500 
+t =0.8594 trho =0.8596 n=2150 indice =86
+------ post traitement-------2150/2500 
+t =0.8694 trho =0.8696 n=2175 indice =87
+------ post traitement-------2175/2500 
+t =0.8794 trho =0.8796 n=2200 indice =88
+------ post traitement-------2200/2500 
+t =0.8894 trho =0.8896 n=2225 indice =89
+------ post traitement-------2225/2500 
+t =0.8994 trho =0.8996 n=2250 indice =90
+------ post traitement-------2250/2500 
+t =0.9094 trho =0.9096 n=2275 indice =91
+------ post traitement-------2275/2500 
+t =0.9194 trho =0.9196 n=2300 indice =92
+------ post traitement-------2300/2500 
+t =0.9294 trho =0.9296 n=2325 indice =93
+------ post traitement-------2325/2500 
+t =0.9394 trho =0.9396 n=2350 indice =94
+------ post traitement-------2350/2500 
+t =0.9494 trho =0.9496 n=2375 indice =95
+------ post traitement-------2375/2500 
+t =0.9594 trho =0.9596 n=2400 indice =96
+------ post traitement-------2400/2500 
+t =0.9694 trho =0.9696 n=2425 indice =97
+------ post traitement-------2425/2500 
+t =0.9794 trho =0.9796 n=2450 indice =98
+------ post traitement-------2450/2500 
+t =0.9894 trho =0.9896 n=2475 indice =99
+------ post traitement-------2475/2500 
+t =0.9994 trho =0.9996 n=2500 indice =100
+------ post traitement-------2500/2500 
 ===================================== 
-time leapfrog : mat = 3.81279 inv = 28.761 smb = 59.2595 sol = 0.091441 tproc=0.642609 tsave =22.5777 total = 115.145
- erreur maximal : 3.84404 erreur maximal relative :2.00011 
+time leapfrog : mat = 74.0575 inv = 98.921 smb = 241.006 sol = 0.128241 tproc=1.85402 tsave =8.59914 total = 424.565
+erreur maximal L2 : 0.000126128 erreur maximal relative L2 :0.00918914 
+erreur maximal H1: 891.081  erreur_maximal relative_H1: 73.9577 

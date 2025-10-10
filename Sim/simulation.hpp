@@ -51,7 +51,6 @@ extern Number savepic;
 extern Number vbl;
 
 extern String choix;
-extern bool pre_Start;
 extern Number test_nombre;
 
 extern Real R_ref ,T_trans;
@@ -87,7 +86,8 @@ Real f(const Point& P, Parameters& pa = defaultParameters);
 Real splin_exp(const Real x);
 Real splin_lin(const Real x);
 Real raccord (const Real x, const Real p1,const  Real p2,const Real a, const Real b);
-void simulation(path dossier_film, path dossier_trail);
+void simulation(path dossier_trail);
+void test_standard(path dossier, const vector<Real> S_s, const vector<Real> S_d, const vector<Real> V);
 
 Real f_2_temp(const Real x);        // par construction, cette fonction est 2T periodique
 Real f_2(const Real x);             // passe d'une fonction definit sur [0,2T] a defini sur R+
@@ -150,37 +150,4 @@ class Domain_S
 
 };
 
-// void ajout_interface(Domain_S _D1, Domain_S _D2,function<Real(Real,Real)> interface){
-//     _D1.ajout_bords(interface); _D2.ajout_bords(interface);
-// }
-
-// class Interface_S
-    // {
-    //     public :
-    //     Domain_S D1, D2;
-    //     Real vit, Start;
-    //     Real reg=0.;
-
-    //     Interface_S(Domain_S _D1, Domain_S _D2, Real _vit, Real _Start, Real _Reg=0): D1(_D1), D2(_D2), vit(_vit),Start(_Start), reg(_Reg) {};
-
-    //     // Real rho(Real x){
-    //     //     cout<<"I was here \n";
-    //     //     Real x = _P(1) -vit*t;
-    //     //     cout<<x<<'\n';
-    //     //     cout<<D1.rho<<'\n';
-    //     //     if(x<0){return D1.rho;}
-    //     //     if(x<reg){return raccord(x,D1.rho,D2.rho,-reg,reg);}
-    //     //     else{return D2.rho;}
-    //     //     return 1;
-    //     // };
-    //     // Real mu(Point _P){
-    //     //     Real x = _P(1) -vit*t +Start;
-    //     //     if(x<-reg){return D1.rho;}
-    //     //     if(x<reg){return raccord(x,D1.rho,D2.rho,-reg,reg);}
-    //     //     else{return D2.rho;}
-    //     // };
-    // };
-
-
 extern vector<Domain_S> Domaines;
-// extern vector<Interface_S> Interfaces;

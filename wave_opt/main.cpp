@@ -124,16 +124,16 @@ int main(int argc, char** argv){
 
       vit = opts("vit");  vit_abs = abs(vit);
       if(vit_abs<min(cm,cp)){ 
-        if(Start_sol<0) tau_1 = (cp-vit)/(cm-vit), tau_2 = (cm +vit)/(cm-vit);  R_ref = (sm-sp)/(sm+sp), T_trans = 2*sm/(sm+sp);
-        if(Start_sol>0) tau_1 = (cm+vit)/(cp+vit), tau_2 = (cp-vit)/(cp+vit);   R_ref = (sp-sm)/(sm+sp), T_trans = 2*sp/(sm+sp);
+        if(Start_sol<=Start_int) {tau_1 = (cp-vit)/(cm-vit), tau_2 = (cm +vit)/(cm-vit);  R_ref = (sm-sp)/(sm+sp), T_trans = 2*sm/(sm+sp);}
+        if(Start_sol>Start_int) {tau_1 = (cm+vit)/(cp+vit), tau_2 = (cp-vit)/(cp+vit);   R_ref = (sp-sm)/(sm+sp), T_trans = 2*sp/(sm+sp);}
         }
       if(vit_abs>max(cm,cp)){ 
-        if(Start_sol<0)
+        if(Start_sol<=Start_int)
         {
           R_ref = (sp-sm)/(2*sp), T_trans = (sp+sm)/(2*sp);
           tau_1 = (vit-cp)/(vit-cm), tau_2 = (cp-vit)/(vit+cm), tau_3 =(vit+cp)/(vit+cm), tau_4=(vit+cp)/(vit-cm);}
         
-        if(Start_sol>0)
+        if(Start_sol>Start_int)
         {
           R_ref =(sm-sp)/(2*sm), T_trans =  (sp+sm)/(2*sm);
           tau_1 = (-vit-cm)/(-vit-cp), tau_2 = (cm+vit)/(-vit+cp), tau_3 =(-vit+cm)/(-vit+cp), tau_4=(-vit+cm)/(-vit-cp);}
@@ -145,64 +145,57 @@ int main(int argc, char** argv){
       String direction_temp = opts("direction");  if(direction_temp != "droite"){direction = 1;} else direction =-1;
 
       epsi = opts("regularisation");  T = opts("period_T"); 
-      // if(mod=="energie"){T = abs(length/vit);}
       String cond_temp=opts("condition"); cond = cond_temp;
 
   // ========================== creation des domaines ==========================================
 
-    Real s3 = (sm+sp)/2, c3 = (cm+cp)/2;
-    Domain_S D1(cm,sm,"vitesse",epsi), D2(cp,sp,"vitesse",epsi); // D3(c3,s3,"vitesse",epsi);
+    // Real s3 = (sm+sp)/2, c3 = (cm+cp)/2;
+    // Domain_S D1(cm,sm,"vitesse",epsi), D2(cp,sp,"vitesse",epsi); // D3(c3,s3,"vitesse",epsi);
 
-    function<Real(Real,Real)> bord1([](Real x,Real t){
-      Real xi = x*x +vit*t -Start_int*vit;
-      if(xi<-epsi){return 1.;}
-      if(xi<epsi){return raccord(xi,1.,0.,-epsi,epsi);}
-      else{return 0.;}
-    });
+    // function<Real(Real,Real)> bord1([](Real x,Real t){
+    //   Real xi = x*x +vit*t -Start_int*vit;
+    //   if(xi<-epsi){return 1.;}
+    //   if(xi<epsi){return raccord(xi,1.,0.,-epsi,epsi);}
+    //   else{return 0.;}
+    // });
 
-    function<Real(Real,Real)> bord2([](Real x,Real t){
-      Real xi = x*x +vit*t -Start_int*vit; xi *=-1;
-      if(xi<-epsi){return 1.;}
-      if(xi<epsi){return raccord(xi,1.,0.,-epsi,epsi);}
-      else{return 0.;}
-    });
+    // function<Real(Real,Real)> bord2([](Real x,Real t){
+    //   Real xi = x*x +vit*t -Start_int*vit; xi *=-1;
+    //   if(xi<-epsi){return 1.;}
+    //   if(xi<epsi){return raccord(xi,1.,0.,-epsi,epsi);}
+    //   else{return 0.;}
+    // });
 
-    D2.ajout_bords(bord1); D1.ajout_bords(bord2);
+    // D2.ajout_bords(bord1); D1.ajout_bords(bord2);
 
-    // D1.ajout_bords_lin(0.,vit,1); 
-    // D3.ajout_bords_lin(0,vit,-1); D3.ajout_bords_lin(Start_int,vit,1);
-    // D2.ajout_bords_lin(0,vit,-1);
+    // // D1.ajout_bords_lin(0.,vit,1); 
+    // // D3.ajout_bords_lin(0,vit,-1); D3.ajout_bords_lin(Start_int,vit,1);
+    // // D2.ajout_bords_lin(0,vit,-1);
 
 
-    theCout<<"Domaines crées \n";
-    Domaines.push_back(D1); Domaines.push_back(D2);
+    // theCout<<"Domaines crées \n";
+    // Domaines.push_back(D1); Domaines.push_back(D2);
     // Domaines.push_back(D3);
 
-    theCout<<"Domaines ajouté \n";
+    // theCout<<"Domaines ajouté \n";
 
-    if(mod =="domain")
-    {  
-    theCout<<"==================================================================\n";
-    theCout<<"La simulation possède "<<Domaines.size()<<" domaines. \n";
-    for(int i=0;i<Domaines.size();i++){
-      theCout<<"domaine "<<i<<": rho ="<<Domaines[i].rho<<", mu ="<<Domaines[i].mu<<'\n';
-    }
-    theCout<<"==================================================================\n";
-    }
+    // if(mod =="domain")
+    // {  
+    // theCout<<"==================================================================\n";
+    // theCout<<"La simulation possède "<<Domaines.size()<<" domaines. \n";
+    // for(int i=0;i<Domaines.size();i++){
+    //   theCout<<"domaine "<<i<<": rho ="<<Domaines[i].rho<<", mu ="<<Domaines[i].mu<<'\n';
+    // }
+    // theCout<<"==================================================================\n";
+    // }
   // ========================== simulation et traitement de données =============================
-    path dossier ="simulation";
-    
-    if (!exists(dossier)) {create_directory(dossier);}
 
-    path dossier_film = dossier/ path("film");
-    if (!exists(dossier_film)) {create_directory(dossier_film);}
-
-    path dossier_trail = dossier/ path("trail");
+    path dossier_trail = path("trail");
     if (!exists(dossier_trail)) {create_directory(dossier_trail);}
         
     mu_0 = give_mu(sm,cm); mu_1 = give_mu(sp,cp);
     rho_0 = give_rho(sm,cm); rho_1 = give_rho(sp,cp);
 
-    simulation(dossier_film,dossier_trail);
+    simulation(dossier_trail);
     return 0;
   }

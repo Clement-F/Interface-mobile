@@ -52,14 +52,9 @@ Real u_d(const Point&P, Parameters& pa) // u'(x,0) ou u(x,dt) en fonction des po
   if(uni_dir)d = abs(P(1)-Start_sol - cm*dtime); else d=  abs(P(1)-Start_sol);
   return exp(-a*d*d);
   // if(mod =="energie") {possede_derive = true; possede_valeur = false;return cm*2*x*a*exp(-a*(x-length/2)*(x-length/2));}
+}
 
-}
-Real u_1(const Point&P, Parameters& pa) // u(x,dt)
-{ 
-  if(possede_valeur){return u_d(P);}
-  else if(possede_derive){return u_0(P) + dtime* u_d(P);}
-  else return 0;
-}
+
 
 // ========================== fonctions de bords pour le cas energie ====================================
 Real f_2_temp(const Real x)
@@ -73,7 +68,7 @@ Real f_2_temp(const Real x)
 }
 Real f_2(const Real x)
 { 
-  if(0<x && x<T/2) return cm*T +vit*T-vit*x;    
+  if(0<=x && x<T/2) return cm*T +vit*T-vit*x;    
 
   Real t_mod = x - floor(x/(2*T)) * 2*T;
   if(t_mod<0 and error_verb) error("free_error"," temps negatif sur f_2 \n");
@@ -83,7 +78,7 @@ Real f_2(const Real x)
 }
 Real f_1(const Real x)
 {
-  if(0<x && x<=T) return -vit_abs*T + vit_abs*x;
+  if(0<=x && x<=T) return -vit_abs*T + vit_abs*x;
   if(T<x && x<=3*T/2) return vit*T - vit*x;
   else return f_2(x)-cm*T;
   if(error_verb) theCout<<"error !!!!!!!!! \n";
@@ -98,13 +93,15 @@ Real rho(const Point& P, Parameters& pa)
 
   if(mod=="flat"){return rho_0;}
 
-  if(mod=="Jump"){
+  if(mod=="Jump")
+  {
     if(trho>=tf/4){return  rho_1;} 
-    else{return rho_0;}}
+    else{return rho_0;}
+  }
   if(mod=="period"){return rho_0 + rho_1 * sin(wave_length*trho/(2*pi_))*sin(space_length*dot(k,P)/(2*pi_));}
 
   if(mod=="interface"){
-    Real x =P(1) -vit*t;
+    Real x =P(1) -vit*t-Start_int;
       if(x<-epsi){return rho_0;}
       if(x<epsi){return raccord(x,rho_0,rho_1,-epsi,epsi);}
       else{return rho_1;}
@@ -147,13 +144,15 @@ Real rho(const Point& P, Parameters& pa)
 Real mu(const Point& P, Parameters& pa)
 {
   if(mod=="flat"){return mu_0;}
-  if(mod=="Jump"){
-    if(t>= tf/2){return  mu_1;}
-    else{return mu_0;}}
+  if(mod=="Jump")
+  {
+    if(t>= tf/4){return  mu_1;}
+    else{return mu_0;}
+  }
 
 
   if(mod=="interface"){
-      Real x =P(1) -vit*t;
+      Real x =P(1) -vit*t-Start_int;
       if(x<-epsi){return mu_0;}
       if(x<epsi){return raccord(x,mu_0,mu_1,-epsi,epsi);}
       else{return mu_1;}
@@ -213,16 +212,16 @@ Real Fm (const Point&P, Parameters& pa)
   else{
     if(mod=="flat"){return 0.5*u_0(P_xi);}
 
-    if(mod=="interface" and epsi <0.1){
+    if(mod=="interface"){
       if(vit_abs<min(cm,cp)){if(error_verb) theCout<<"ERROR_int_neg ";return 10;} 
 
       if(vit_abs>max(cm,cp)){
-        if(Start_sol<0){
+        if(Start_sol<Start_int){
           if(vit>=0){return 0;}
           if(vit<0){if(error_verb) theCout<<"ERROR_neg_fm_n";return 10;}}
-        if(Start_sol>0){
+        if(Start_sol>Start_int){
           if(vit<0){if(error_verb) theCout<<"ERROR_neg_fm_p";return 10;}
-          if(vit>=0){return 0.5*(T_trans * u_0(P_xi/tau_3)+ R_ref*u_0(P_xi/tau_4));}
+          if(vit>=0){return 0.5*(T_trans * u_0(P_xi/tau_3 + Start_int*(cp-cm)/(-vit-cm))+ R_ref*u_0(P_xi/tau_4 + Start_int*(cm+cp)/(cp+vit)));}
           }
         else if(error_verb) theCout<<"ERROR_nochoice";return 10;
 
@@ -246,19 +245,19 @@ Real Gm (const Point&P, Parameters& pa)
   if(xi<=Start_int){return 0.5*u_0(P_xi);}
   else{
     if(mod=="flat"){return 0.5*u_0(P_xi);}
-    if(mod=="interface" and epsi<0.1){
+    if(mod=="interface"){
       // if(abs((-P_xi+Start_int)(1)/tau_2 -Start_sol)<0.1) theCout<<P(1)<<" GM "<<'\n';
       if(vit_abs<min(cm,cp)){
-        if(Start_sol<0){return R_ref/2 * u_0(-P_xi/tau_2);}
-        if(Start_sol>0){return T_trans/2 * u_0(P_xi/tau_1);}}
+        if(Start_sol<Start_int){return R_ref/2 * u_0(-P_xi/tau_2);}
+        if(Start_sol>Start_int){return T_trans/2 * u_0(P_xi/tau_1);}}
 
       if(vit_abs>max(cm,cp)){
-        if(Start_sol<0){
+        if(Start_sol<Start_int){
           if(vit>=0){return 0;}
           if(vit<0){if(error_verb) theCout<<"ERROR_neg_gm_n";return 10;}}
-        if(Start_sol>0){
+        if(Start_sol>Start_int){
             if(vit<0){if(error_verb) theCout<<"ERROR_neg_gm_p";return 10;}
-            if(vit>=0){return 0.5*(T_trans*u_0(P_xi/tau_1) +R_ref*u_0(-P_xi/tau_2));}}
+            if(vit>=0){return 0.5*(T_trans*u_0(P_xi/tau_1 + Start_int*(cm-cp)/(cm-vit)) +R_ref*u_0(-P_xi/tau_2 + Start_int*(cm+cp)/(cp-vit)));}}
         else if(error_verb) theCout<<"ERROR_nochoice";return 10;
         }
 
@@ -281,18 +280,18 @@ Real Fp (const Point&P, Parameters& pa)
     else{
       if(mod=="flat"){return 0.5*u_0(P_xi);}
 
-      if(mod=="interface" and epsi <0.1){
+      if(mod=="interface" ){
         // if(abs((P_xi+Start_int)(1)/tau_1 -Start_sol)<0.1) theCout<<P(1)<<" FP "<<'\n';
         if(vit_abs<min(cm,cp)){
-          if(Start_sol<0){return T_trans/2 * u_0((P_xi)/tau_1);}
-          if(Start_sol>0){return R_ref/2 *u_0(-P_xi/tau_2);}
+          if(Start_sol<Start_int){return T_trans/2 * u_0((P_xi)/tau_1);}
+          if(Start_sol>Start_int){return R_ref/2 *u_0(-P_xi/tau_2);}
           }
 
         if(vit_abs>max(cm,cp)){ 
-          if(Start_sol<0){
+          if(Start_sol<Start_int){
             if(vit>0){if(error_verb) theCout<<"ERROR_neg_fp_p";return 10;}
-            if(vit<=0){return 0.5*(T_trans*u_0(P_xi/tau_1) +R_ref*u_0(-P_xi/tau_2));}}
-          if(Start_sol>0){
+            if(vit<=0){return 0.5*(T_trans*u_0(P_xi/tau_1 + Start_int*(cm-cp)/(vit-cp)) +R_ref*u_0(-P_xi/tau_2 + Start_int*(cm+cp)/(cp-vit)));}}
+          if(Start_sol>Start_int){
             if(vit<=0){return 0;}
             if(vit>0){if(error_verb) theCout<<"ERROR_neg_fp_p";return 10;}}
         }
@@ -312,14 +311,14 @@ Real Gp (const Point&P, Parameters& pa)
   else{
     if(mod=="flat"){return 0.5*u_0(P_xi);}
 
-    if(mod=="interface" and epsi <0.1){
+    if(mod=="interface"){
       if(vit_abs<min(cm,cp)){if(error_verb) theCout<<"ERROR_int_pos";return 10;}
 
       if(vit_abs>max(cm,cp)){
-        if(Start_sol<0){
+        if(Start_sol<Start_int){
           if(vit>0){if(error_verb) theCout<<"ERROR_neg_gp_p";return 10;}
-          if(vit<=0){return 0.5*(T_trans * u_0(P_xi/tau_3)+ R_ref*u_0(P_xi/tau_4));}}
-        if(Start_sol>0){
+          if(vit<=0){return 0.5*(T_trans * u_0(P_xi/tau_3 +Start_int*(cp-cm)/(vit+cp))+ R_ref*u_0(P_xi/tau_4 + Start_int*(cm+cp)/(cp+vit)));}}
+        if(Start_sol>Start_int){
           if(vit<=0){return 0;}
           if(vit>0){if(error_verb) theCout<<"ERROR_neg_gp_p";return 10;}}
       }
@@ -365,10 +364,9 @@ Real h(const Real& t, Parameters& pa){return 0;}
 Real f(const Point& P, Parameters& pa){return 0;}
 
 
-void simulation(path dossier_film, path dossier_trail)
+void simulation(path dossier_trail)
 { 
 
-  if(mod=="interface") Start_int=0;
   //=========================== check data ==============================================
     if(error_verb or error_calc){
       if(tf<0) error("temps de simulation négatif \n");
@@ -385,13 +383,13 @@ void simulation(path dossier_film, path dossier_trail)
       if(T<0) error("period negative \n");
       if(epsi<0) error("regularisation negative \n");
       if(choix !="vitesse" and choix!="para") error("choix non defini \n");
-      if(mod !="flat" and mod !="Jump" and mod!="interface" and mod!="period" and mod!="energie" and mod!="double" and mod !="domain") error("model non supportee \n");
+      if(mod !="flat" and mod !="Jump" and mod!="interface" and mod!="period" and mod!="energie" and mod!="double" and mod !="domain") error("model non supportee");
       if(cond !="neumann" and cond!="trans") error("condition non supportee \n");
       if(0>CFL or CFL>1) error("CFL mal defini");  }
     
   //=========================== declaration ===================================================
 
-    if(true){
+    if(false){
     if(ord ==1){CFL = 0.95;}
     if(ord ==2){CFL = 0.8;}
     if(ord ==3){CFL = 0.6;}
@@ -416,10 +414,10 @@ void simulation(path dossier_film, path dossier_trail)
       c_max = max(cm,cp);
       theCout<<" model : "<<mod<<" \n";
       if(mod=="interface"){
-        if(vit<min(cm,cp)) theCout<<" régime subsonique \n";
-        else if(vit>max(cm,cp)) theCout<<" régime supersonique \n";
-        else if(vit>cp) theCout<<" régime transonique +\n";
-        else if(vit>cm) theCout<<" régime transonique -\n";
+        if(vit_abs<min(cm,cp)) theCout<<" régime subsonique \n";
+        else if(vit_abs>max(cm,cp)) theCout<<" régime supersonique \n";
+        else if(vit_abs>cp) theCout<<" régime transonique +\n";
+        else if(vit_abs>cm) theCout<<" régime transonique -\n";
       }
       theCout<<" célérité maximal : "<<c_max;
       dtime = give_dt(dspace,c_max);
@@ -433,7 +431,7 @@ void simulation(path dossier_film, path dossier_trail)
 
       Real dt2=dtime*dtime, dt_2= dtime/2, dt_4d3 =1/(4*dtime*dtime*dtime);
 
-      savefile = max(Number(0), max(savefile,Number(floor(Real(nbt)/savepic))));
+      savefile = min(savefile,Number(ceil(Real(nbt)/savepic)));
       theCout<<" savefile ="<<savefile<<" \n";
 
     // storage creation
@@ -443,32 +441,43 @@ void simulation(path dossier_film, path dossier_trail)
       TermVectors RHO((int)(nbt/savefile)+1, _name="RHO");
       TermVectors MU((int)(nbt/savefile)+1, _name="MU");
 
-      std::vector<Real> E((int)(nbt/savefile)+1), Error((int)(nbt/savefile)+1), Error_relat((int)(nbt/savefile)+1);
+      std::vector<Real> E((int)(nbt/savefile)+1); 
+      std::vector<Real> ErrorL2((int)(nbt/savefile)+1), ErrorL2_relat((int)(nbt/savefile)+1);
+      std::vector<Real> ErrorH1((int)(nbt/savefile)+1), ErrorH1_relat((int)(nbt/savefile)+1);
       theCout<<"========================= Storage created ========================"<<'\n';
 
     // cond initial
       TermVector zeros(u, omega, 0.), ones(u,omega,1.);
-      TermVector U0(u,omega,u_0,_name="U_sol"), U1(u,omega,u_1,_name="U_sol"); // Condition initiales
-      Real max_Error=0., max_Error_relat=0.;
+      TermVector U0(u,omega,u_0,_name="U_sol"),  U1(u,omega,u_d,_name="U_sol"); // Condition initiales
+      Real max_Error_L2=0., max_Error_relat_L2=0.;
+      Real max_Error_H1=0., max_Error_relat_H1=0.;
 
-      U(1)= U0;  U(2)= U1;
+      U(1)= U0;
 
-      theCout<<"normes des premiers termes "<<norminfty(U0)<<" "<<norminfty(U1)<<endl;
+      // theCout<<"normes des premiers termes "<<norminfty(U0)<<" "<<norminfty(U1)<<endl;
       theCout<<"========================= Cond init set ========================"<<'\n';
 
     // definition des formes
-      t=dtime;
+      t=0;
       trho = t+dt_2; 
-      BilinearForm a = intg(omega, mu*grad(u)|grad(v), _quad = GaussLegendre, _order =2*ord-1);
-      BilinearForm m,b;
-      // theCout<<"a défini";
-            
-      if(fes =="standard"){ m = intg(omega, rho*u*v, _quad = GaussLegendre, _order =ord); b = intg(gamma, beta_0*u*v, _quad = GaussLegendre, _order =ord); }
+
+      BilinearForm a = intg(omega, mu*grad(u)|grad(v), _quad = GaussLobatto, _order =2*ord-1);
+      BilinearForm m = intg(omega, rho*u*v, _quad = GaussLobatto, _order =(2*ord-1));
+      BilinearForm b = intg(gamma, beta_0*u*v, _quad = GaussLobatto, _order =(2*ord-1));
+      LinearForm   l = intg(omega, f*v, _quad = GaussLobatto, _order =2*ord-1);
+
+      TermMatrix Masse = TermMatrix(intg(omega, u*v, _quad = GaussLobatto, _order =(2*ord-1)));   
+      TermMatrix Rigid = TermMatrix(intg(omega, grad(u)|grad(v) , _quad = GaussLobatto, _order =(2*ord-1)));
+      TermMatrix An =   TermMatrix(a,_name="An_"+tostring(t)); 
+      TermMatrix Mnp1 = TermMatrix(m,_name="M_"+tostring(t)); 
+
+      TermMatrix L;     ldltFactorize(Mnp1, L);
+      TermVector U2 =   factSolve(L, dt2*U0);
+      if(uni_dir){U(2)=U1; theCout<<"hiiiiiiiiii"<<'\n';}
+      else{U(2) = U0 - 0.5* U2 ;theCout<<"heyyyyyyyyyy"<<'\n';}
       
-      else {m = intg(omega, rho*u*v, _quad = GaussLobatto, _order =(2*ord-1)); b =intg(gamma, beta_0*u*v, _quad = GaussLobatto, _order =(2*ord-1)); }
-      // theCout<<"b défini";
-      LinearForm   l = intg(omega, f*v, _quad = GaussLegendre, _order =2*ord-1);
-      // theCout<<"l défini";
+      saveToFile("U1",U(1)-U(2),_format=raw);
+
       theCout<<"========================= Form defined ========================"<<'\n';
     
     // derniere preparations
@@ -485,13 +494,12 @@ void simulation(path dossier_film, path dossier_trail)
       if(mod=="interface") theCout<<"vitesse = "<<vit<<" \n";
       if(mod=="period") theCout<<"period spacial = "<<space_length<<" period temporel = "<<wave_length<<" \n";
       if(mod=="energie") theCout<<"vitesse = "<<vit<<", period temporel = "<<T<<" \n";
-      if(mod=="energie" or mod=="interface"){
         theCout<<"les coeffs de reflexion, transmissions sont : R ="<<R_ref<<" T="<<T_trans<<" \n";
         theCout<<"les coeffs de contraction dilatation sont : tau_1="<<tau_1<<" tau_2="<<tau_2<<" tau_3="<<tau_3<<" tau_4="<<tau_4<<" \n";
-      }
+
 
       TermMatrix M1_temp, M2_temp, M_moy;
-      TermMatrix An, Mnp1, Bn, L, MB;
+      TermMatrix Bn, MB;
       TermVector Fn, G, Err, U_1, U_2, MBv;    
   // ========================== loop ============================================================== 
     theCout<<"========================= loop ========================"<<'\n';
@@ -506,62 +514,39 @@ void simulation(path dossier_film, path dossier_trail)
 
       trho=t;
       Bn=   TermMatrix(b,_name="Bn_"+tostring(t));
-
       tmat+=elapsedTime();
 
       // inversion de la matrice MB
       MB = Mnp1 + dt_2*Bn ;
       if(fesub==_standard) ldltFactorize(MB, L);  else L=inverse(MB);
-      // if(MB.isDiagonal()){
-      //   MBv = MB*ones; 
-      //   MBv = complex(1.)/MBv; 
-      //   MB = TermMatrix(MBv,_name="MB"+tostring(t));}
-      // else ldltFactorize(MB, L);
+      // if(MB.isDiagonal())
+      // {
+      //   MBv = MB*ones;
+      //   MBv = TermVector(MBv, 1./x_1);
+      //   L = TermMatrix(MBv,_name="MB"+tostring(t));
+      // }
+      // else {ldltFactorize(MB, L);}
       L.name("L");
       tinv+=elapsedTime();
 
       // schéma numérique
       Fn = TermVector(l,_name="Fn_"+tostring(t));
       G = - Mn*U(n-1) + dt_2*Bn*U(n-1) + (Mnp1+Mn)*U(n) + dt2*(Fn-An*U(n));
-
       tsmb+=elapsedTime();
 
       // résolution du système implicite
-      if(fesub==_standard) U(n+1)=factSolve(L,G); else U(n+1)=L*G;
+      U(n+1)=L*G;
       tsol+=elapsedTime();
 
 
       if((n)%savefile ==0){      //traitement de donnees
-        theCout<<"========= "<<test_nombre<< " =============== "<<n<<" =============== " <<(Real(n)/nbt)*tf<<" ========================= \n";
-        
         E[(int)n/savefile] = abs(0.5/dt2 * (Mnp1 * U(n+1)-Mnp1*U(n))|(U(n+1)-U(n))) +0.5 * abs(An*U(n+1)|U(n)); 
 
-        if(error_calc){      
-          t = t-dt_2;   
-          std::cout<<" t="<<t<<'\n';     
-          U_exacts((int)n/savefile) = TermVector(u,omega,u_ex);
-          Err =U(n)-U_exacts((int)n/savefile);
-          Error_relat[(int)n/savefile] = norm2(U(n)-U_exacts((int)n/savefile))/norm2(U_exacts((int)n/savefile));
-          Error[(int)n/savefile] = norm2(Err);
-          if(Error[(int)n/savefile]>max_Error) max_Error = Error[(int)n/savefile];
-          if(Error_relat[(int)n/savefile]>max_Error_relat) max_Error_relat = Error_relat[(int)n/savefile];
-
-          theCout<<"amplitude exacte    : "<<norminfty(U_exacts((int)n/savefile))<<"\n";
-          t = t+dt_2;
-        }
-
+        theCout<<"========= "<<test_nombre<< " =============== "<<n<<" =============== " <<(Real(n)/nbt)*tf<<" ========================= \n";
         Real normU = norminfty(U(n));
         theCout<<"amplitude numerique : "<<normU<<" \n";
         theCout<<"energie             : "<<E[(int)n/savefile]<<'\n';
-        if(error_verb){ 
-          theCout<<"difference max      : "<<norminfty(Err)<<" \n";
-          theCout<<"erreur              : "<<Error[(int)n/savefile]<<" \n";
-          theCout<<"erreur relative     : "<<Error_relat[(int)n/savefile]<<" \n";
-          theCout<<"le max de l'erreur  : "<<max_Error<<" \n";
-          theCout<<"max erreur relat    : "<<max_Error_relat<<" \n";
-        }
-          theCout<<floor(Real(n)/nbt*1000)/10<<"%"<<" du calcul fini: "<<n<<"/"<<nbt<<" \n";
-          // if(normU>10e11 and (error_calc or error_verb)) error("free_error","instabilité detecté \n");
+        theCout<<floor(Real(n)/nbt*10000)/100<<"%"<<" du calcul fini: "<<n<<"/"<<nbt<<" \n";
         }
         tproc+=elapsedTime();
         Mn=Mnp1;
@@ -573,35 +558,46 @@ void simulation(path dossier_film, path dossier_trail)
     
     theCout<<"le counter est à : "<<counter<<"\n";
     theCout<<"il y a eu : "<<error_count<<" erreurs \n";
-    theCout<<"l'erreur maximal est : "<<max_Error<<" \n";
-    // if(norminfty(U(nbt))>10e11 and (error_calc or error_verb)) error("free_error","instabilité detecté \n");
+    theCout<<"l'erreur maximal est : "<<max_Error_L2<<" \n";
     
     if(savefile>0)
     {
       elapsedTime();
       Real tsave=0.;
-      theCout<<"========================= save to file ========================"<<'\n';
-      // TermVector U_tosave(_name="U_saved"), U_extosave(_name="U_ex_saved"), Inter_tosave(_name="Int_saved");
-      
-      for (Number n=savefile, indice =1; n<nbt; n+=savefile, indice+=1){
-        t = n*dtime;
+      theCout<<"========================= save to file ========================"<<'\n';      
+      for (Number n=savefile, indice =1; n<=nbt; n+=savefile, indice+=1){
+        t = n*dtime -dtime-dt_2  ; trho = t+dt_2;
+        theCout<<"t ="<<t<<" trho ="<<trho<<" n="<<n<<" indice ="<<indice<<'\n';
+        U_exacts(indice) = TermVector(u,omega,u_ex);
+        Err =U(n)-U_exacts(indice);
+
+        ErrorL2[indice] = abs((Masse*Err|Err));
+        ErrorL2_relat[indice] = ErrorL2[indice]/abs((Masse*U_exacts(indice)|U_exacts(indice)));
+        if(ErrorL2[indice]>max_Error_L2) max_Error_L2 = ErrorL2[indice];
+        if(ErrorL2_relat[indice]>max_Error_relat_L2) max_Error_relat_L2 = ErrorL2_relat[indice];
+        
+        ErrorH1[indice] = abs((Rigid*Err|Err));
+        ErrorH1_relat[indice] = ErrorH1[indice]/abs((Rigid*U_exacts(indice)|U_exacts(indice)));
+        if(ErrorH1[indice]>max_Error_H1) max_Error_H1 = ErrorH1[indice];
+        if(ErrorH1_relat[indice]>max_Error_relat_H1) max_Error_relat_H1 = ErrorH1_relat[indice];
+
         Interface(indice) = TermVector(u,omega,interface_func);
         RHO(indice) = TermVector(u,omega,rho);
         MU(indice)  = TermVector(u,omega,mu);
+        TermVector U_tosave = U(n); 
+
 
         // U_exacts(indice) = TermVector(u,omega,u_ex);
-        U(n).name("Usol"); Interface(indice).name("Int"); U_exacts(indice).name("Uex");
+        U_tosave.name("Usol"); Interface(indice).name("Int"); U_exacts(indice).name("Uex");
         RHO(indice).name("rho"); MU(indice).name("mu");
-        saveToFile("U"+tostring(indice)+"_film",U(n),U_exacts((int)n/savefile),_format=vtu,_aUniqueFile);
-        saveToFile("Interface"+tostring(indice)+"_film",Interface((int)n/savefile),RHO((int)n/savefile),MU((int)n/savefile),_format=vtu,_aUniqueFile );
         saveToFile("U"+tostring(indice)+"_trail",U(n),_format=raw);
-        saveToFile("Uex"+tostring(indice)+"_trail",U_exacts((int)n/savefile),_format=raw);
-        saveToFile("Int"+tostring(indice)+"_trail",Interface((int)n/savefile),_format=raw);
-        saveToFile("Rho"+tostring(indice)+"_trail",RHO((int)n/savefile),_format=raw);
-        saveToFile("Mu"+tostring(indice)+"_trail",MU((int)n/savefile),_format=raw);
+        saveToFile("Uex"+tostring(indice)+"_trail",U_exacts(indice),_format=raw);
+        saveToFile("Int"+tostring(indice)+"_trail",Interface(indice),_format=raw);
+        saveToFile("Rho"+tostring(indice)+"_trail",RHO(indice),_format=raw);
+        saveToFile("Mu"+tostring(indice)+"_trail",MU(indice),_format=raw);
 
-        move("U"+tostring(indice)+"_film.vtu", dossier_film);
-        move("Interface"+tostring(indice)+"_film.vtu", dossier_film);
+        // move("U"+tostring(indice)+"_film.vtu", dossier_film);
+        // move("Interface"+tostring(indice)+"_film.vtu", dossier_film);
         move("U"+tostring(indice)+"_trail.txt", dossier_trail);
         move("Uex"+tostring(indice)+"_trail.txt", dossier_trail);
         move("Int"+tostring(indice)+"_trail.txt", dossier_trail);
@@ -616,10 +612,15 @@ void simulation(path dossier_film, path dossier_trail)
       myfile.close();         
       move("E_trail.txt", dossier_trail);
 
-      myfile.open("Error_trail.txt");
-      for (Number i=0; i<=((int)nbt/savefile - 1) ;i++ ){myfile<<Error[i]<<" "<<Error_relat[i]<<"\n";}
+      myfile.open("ErrorL2_trail.txt");
+      for (Number i=0; i<=((int)nbt/savefile - 1) ;i++ ){myfile<<ErrorL2[i]<<" "<<ErrorL2_relat[i]<<"\n";}
       myfile.close();         
-      move("Error_trail.txt", dossier_trail);
+      move("ErrorL2_trail.txt", dossier_trail);
+
+      myfile.open("ErrorH1_trail.txt");
+      for (Number i=0; i<=((int)nbt/savefile - 1) ;i++ ){myfile<<ErrorH1[i]<<" "<<ErrorH1_relat[i]<<"\n";}
+      myfile.close();         
+      move("ErrorH1_trail.txt", dossier_trail);
 
 
 
@@ -628,17 +629,65 @@ void simulation(path dossier_film, path dossier_trail)
       myfile<<"c_m: "<<cm<<" \n"<<"c_p: "<<cp<<" \n"<<"v: "<<vit<<" \n"<<"s_m: "<<sm<<" \n"<<"s_p: "<<sp<<" \n";
       myfile<<"length: "<<length<<" \n"<<"tf: "<<tf<<'\n';
       myfile<<"start_interface: "<<Start_int<<" \n"<<"start_solution: "<<Start_sol<<'\n';
-      myfile<<"regularisation de l'interface: "<<epsi<<'\n';
 
       tsave+=elapsedTime();
       myfile<<"mat: "<<tmat<<"\ninv: "<<tinv<<"\nsmb: "<<tsmb<<"\nsol: "<<tsol<<"\ntproc: "<<tproc<<"\ntsave: "<<tsave<<"\ntotal: "<<tmat+tsmb+tinv+tsol+tproc+tsave<<'\n';
-      myfile<<"erreur_maximal: "<<max_Error<<"\nerreur_maximal_relative: "<<max_Error_relat<<" \n";
+      myfile<<"erreur_maximal_L2: "<<max_Error_L2<<"\nerreur_maximal_relative_L2: "<<max_Error_relat_L2<<" \n";
+      myfile<<"erreur_maximal_H1: "<<max_Error_H1<<"\nerreur_maximal_relative_H1: "<<max_Error_relat_H1<<" \n";
       myfile<<"start_domaine: "<<Start_domaine<<'\n'<<"regularisation: "<<epsi<<'\n';;
       myfile.close();
       move("data_trail.txt", dossier_trail);
 
       theCout<<"===================================== \n";
       theCout<<"time leapfrog : mat = "<<tmat<<" inv = "<<tinv<<" smb = "<<tsmb<<" sol = "<<tsol<<" tproc="<<tproc<<" tsave ="<<tsave<<" total = "<<tmat+tsmb+tinv+tsol+tproc+tsave<<'\n';
-      theCout<<" erreur maximal : "<<max_Error<<" erreur maximal relative :"<<max_Error_relat<<" \n";
+      theCout<<"erreur maximal L2 : "<<max_Error_L2<<" erreur maximal relative L2 :"<<max_Error_relat_L2<<" \n";
+      theCout<<"erreur maximal H1: "<<max_Error_H1<<"  erreur_maximal relative_H1: "<<max_Error_relat_H1<<" \n";
     }
+}
+
+void test_standard(path dossier,const vector<Real> S_s, const vector<Real> S_d,const vector<Real> V){
+  
+
+  if(mod=="interface")
+  {
+  string regime;
+  for(int k=0; k<12;k++){
+    test_nombre +=1;
+    vit=V[k]; vit_abs = abs(vit);
+    Start_domaine=S_d[k]; Start_sol= S_s[k];
+    
+    if(vit_abs<min(cm,cp)){ 
+        if(Start_sol<0) {tau_1 = (cp-vit)/(cm-vit), tau_2 = (cm +vit)/(cm-vit);  R_ref = (sm-sp)/(sm+sp), T_trans = 2*sm/(sm+sp);}
+        if(Start_sol>0) {tau_1 = (cm+vit)/(cp+vit), tau_2 = (cp-vit)/(cp+vit);   R_ref = (sp-sm)/(sm+sp), T_trans = 2*sp/(sm+sp);}
+        }
+    if(vit_abs>max(cm,cp)){ 
+        if(Start_sol<0)
+        {
+          R_ref = (sp-sm)/(2*sp), T_trans = (sp+sm)/(2*sp);
+          tau_1 = (vit-cp)/(vit-cm), tau_2 = (cp-vit)/(vit+cm), tau_3 =(vit+cp)/(vit+cm), tau_4=(vit+cp)/(vit-cm);}
+        
+        if(Start_sol>0)
+        {
+          R_ref =(sm-sp)/(2*sm), T_trans =  (sp+sm)/(2*sm);
+          tau_1 = (-vit-cm)/(-vit-cp), tau_2 = (cm+vit)/(-vit+cp), tau_3 =(-vit+cm)/(-vit+cp), tau_4=(-vit+cm)/(-vit-cp);}
+      }
+    
+    if(k<4){regime ="subsonique";}
+    else if(k<8){regime = "supersonique";}
+    else {regime ="sonique";}
+    if(k<8){error_calc=1; error_verb=1;}
+    if(k>=8){error_calc=0; error_verb=0;}
+    path dossier_test = dossier/path("trail_" + tostring(k+1));
+    if (!exists(dossier_test)) {create_directory(dossier_test);}
+    simulation(dossier_test);
+  }
+  }
+
+  else
+  {
+  path dossier_test = dossier/path("trail_"+mod);
+  if (!exists(dossier_test)) {create_directory(dossier_test);}
+  simulation(dossier_test);
+  }
+  
 }
